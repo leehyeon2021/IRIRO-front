@@ -4,7 +4,7 @@ import MainPage from './map/MainPage.jsx';
 
 export default function index(props){
     return(<>
-    {/* <Header></Header> 추후에 헤더들어감 */}
+    {/* <Header></Header> 추후에 헤더들어감 -> 왼쪽 위 로그(이리로)*/}
     <Routes>
         <Route path='/' element={< MainPage />}></Route> {/* 메인페이지 */}
         {/* 밑에 계속 추가 */}

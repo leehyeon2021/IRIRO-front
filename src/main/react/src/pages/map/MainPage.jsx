@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import '../../css/MainPage.css';
 import myLocationImg from '../../assets/my_location_marker.png';
+import iriroLogo from '../../assets/logo_iriro.png';
 import MapPage from './MapPage';
+import SearchOverlay from '../route/SearchOverlay'
 
-function App() {
+function MainPage() {
   const [showDangerSpots, setShowDangerSpots] = useState(false);
   const [showSafeSpots, setShowSafeSpots] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   // ⭐ 1단계: 왼쪽 아래 메뉴를 열고 닫을 스위치 추가!
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // ⭐ 새로 추가된 부분: 검색 화면을 열고 닫을 스위치
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   return (
     <div className="app-container">
@@ -53,8 +58,8 @@ function App() {
 
       {/* ⬆️ 상단 영역 */}
       <div className="top-wrapper">
-        <div className="search-bar">
-          <span className="logo">이리로</span>
+        <div className="search-bar" onClick={() => setIsSearchOpen(true)} style={{ cursor: 'pointer' }}>
+          <span className="logo"><img src={iriroLogo} alt="로고" className="logo" /></span>
           <span className="search-text">안전 경로 탐색</span>
           <span className="search-icon">🔍</span>
         </div>
@@ -118,8 +123,13 @@ function App() {
         </div>
       )}
 
+      {/* 검색창이 눌렸을 때만 실행되는 조건부 렌더링 */}
+      {isSearchOpen && (
+        <SearchOverlay onClose={() => setIsSearchOpen(false)} />
+      )}
+
     </div>
   );
 }
 
-export default App;
+export default MainPage;

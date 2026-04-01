@@ -50,24 +50,36 @@ App.css
   display: flex;
   justify-content: space-between;
   width: 90%;
-  max-width: 400px;
+  max-width: 350px;
+  gap: 16px; /* 버튼 사이 간격 추가 */
+  margin: 0 auto; /* 중앙 정렬 */
 }
 
+/* 버튼 공통 스타일 */
 .btn-filter {
-  width: 48%;
-  height: 50px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
+  flex: 1; /* 두 버튼의 너비를 동일하게 맞춤 */
   border: none;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  padding: 14px 16px;
+  font-size: 16px; /* 모바일 환경을 고려해 폰트 크기 살짝 조정 */
+  font-weight: 700;
   cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15); /* 지도 위에서 잘 보이도록 그림자 강화 */
+  transition: all 0.2s ease-in-out; /* 부드러운 애니메이션 효과 */
 }
 
-.btn-danger { background-color: #ff5252; color: white; }
-.btn-safe { background-color: #66bb6a; color: white; }
+/* 터치(클릭) 했을 때 눌리는 액션 */
+.btn-filter:active {
+  transform: scale(0.96);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 색상 테마 - 비비드 */
+.btn-danger { background-color: #FF5A5F; color: #FFFFFF; }
+.btn-safe { background-color: #059669; color: #FFFFFF; }
+
+
+
 
 /* 하단 영역 */
 .bottom-wrapper {
@@ -135,6 +147,12 @@ App.css
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* 이리로 로고*/
+.logo {
+  width: 120px;
+  height: auto;
 }
 
 .my-location-character {
