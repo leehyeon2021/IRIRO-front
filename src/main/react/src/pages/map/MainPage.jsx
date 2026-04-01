@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import './App.css';
-import myLocationImg from './assets/my_location_marker.png';
+import '../../css/App.css';
+import myLocationImg from '../../assets/my_location_marker.png';
 import MapPage from './MapPage';
 
 function App() {
