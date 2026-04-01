@@ -1,0 +1,104 @@
+/* =========================================
+   전체 화면 오버레이 뼈대 (지우면 안 됨!)
+   ========================================= */
+.search-screen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #FFFFFF;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================================
+   새로 만든 통합 검색창 스타일
+   ========================================= */
+/* 상단 헤더 배경 */
+.search-screen-header {
+  padding: 16px 20px;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #E5E7EB; /* 헤더와 리스트 사이 구분선 */
+}
+
+/* 겉으로 보이는 진짜 검색창 */
+.real-search-box {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: #F3F4F6;
+  border-radius: 12px;
+  padding: 8px 12px;
+  box-sizing: border-box;
+}
+
+/* 양쪽 버튼 스타일 */
+.inner-btn {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #374151;
+  padding: 0 8px;
+  font-size: 20px;
+}
+
+/* 중앙 입력칸 */
+.inner-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #333;
+  padding: 0 8px;
+}
+
+.inner-input::placeholder {
+  color: #9CA3AF;
+}
+
+/* =========================================
+   검색 결과 리스트 스타일 (지우면 안 됨!)
+   ========================================= */
+.search-screen-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #FFFFFF;
+  overflow-y: auto; /* 결과가 많으면 스크롤되게 함 */
+}
+
+.empty-search-text {
+  text-align: center;
+  color: #9CA3AF;
+  font-size: 14px;
+  margin-top: 40px;
+}
+
+.search-result-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.search-result-item {
+  padding: 15px 5px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+}
+
+.poi-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+.poi-address {
+  font-size: 13px;
+  color: #888;
+  margin-top: 4px;
+}
