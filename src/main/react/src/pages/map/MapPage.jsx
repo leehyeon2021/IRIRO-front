@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import "../../css/map/MapPage.css";
 
 export default function MapPage() {
   const mapRef = useRef(null);
@@ -16,17 +17,5 @@ export default function MapPage() {
     });
   }, []);
 
-  return (
-    <div
-      ref={mapRef}
-      style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        zIndex: 1,
-      }}
-    />
-  );
+  return <div ref={mapRef} className="map-container" />;
 }

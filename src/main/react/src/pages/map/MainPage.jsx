@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../css/App.css';
+import '../../css/MainPage.css';
 import myLocationImg from '../../assets/my_location_marker.png';
 import MapPage from './MapPage';
 

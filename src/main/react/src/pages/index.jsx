@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router-dom';
-import '../css/App.css';
 import MainPage from './map/MainPage.jsx';
 
 
