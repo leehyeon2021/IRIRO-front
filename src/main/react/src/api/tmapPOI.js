@@ -5,7 +5,14 @@ import axios from 'axios';
 export const searchTmapPOI = async (keyword) => {
     try {
         const response = await 
-        axios.get(`https://apis.openapi.sk.com/tmap/pois?version=1&searchKeyword=${keyword}&format=json&count=15&sort=score`, {
+        axios.get("https://apis.openapi.sk.com/tmap/pois", {
+            params: {
+                version: 1,
+                searchKeyword: keyword,
+                format: "json",
+                count: 15,
+                sort: "score",
+            },
             headers: {
                 appKey: import.meta.env.VITE_TMAP_JS_KEY,
             },
