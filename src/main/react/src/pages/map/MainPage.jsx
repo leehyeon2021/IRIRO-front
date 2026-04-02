@@ -125,7 +125,7 @@ function MainPage() {
 
       {/* 검색창이 눌렸을 때만 실행되는 조건부 렌더링 */}
       {isSearchOpen && (
-        <SearchOverlay onClose={() => setIsSearchOpen(false)} />
+        <SearchOverlay onClose={() => setIsSearchOpen(false)} /> // onClose 함수가 실행되면 검색창이 닫힘 (메인화면으로 옴)
       )}
 
     </div>
