@@ -17,20 +17,8 @@ function MainPage() {
 
   return (
     <div className="app-container">
-        <MapPage />
-      {/* 지도 위에 덮는 커스텀 UI */}
-          <div
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              zIndex: 10,
-              pointerEvents: 'none'
-            }}
-          >
-        {/* 기존 코드 */}
+      <MapPage /> {/* 지도 컴포넌트 호출 */}
+      <div>
         <div className="my-location-wrapper">
           <div className="radar-pulse"></div>
           <img src={myLocationImg} alt="내 위치" className="my-location-character" />
@@ -111,7 +99,7 @@ function MainPage() {
         <div className="modal-overlay">
           <div className="modal-content">
             <h2 className="modal-title">🚨 긴급 신고</h2>
-            <p className="modal-text">현재 위치를 기반으로<br/>경찰에 긴급 신고하시겠습니까?</p>
+            <p className="modal-text">현재 위치를 기반으로<br />경찰에 긴급 신고하시겠습니까?</p>
             <div className="modal-buttons">
               <button className="btn-modal btn-cancel" onClick={() => setIsModalOpen(false)}>취소</button>
               <button className="btn-modal btn-confirm" onClick={() => {
