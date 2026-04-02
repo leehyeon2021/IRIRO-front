@@ -18,10 +18,9 @@ function MainPage() {
 
   
   // 커뮤니티
-  const MainPage = () => {
   const navigate = useNavigate();}
   const navigateToCommunityMain = () => {
-    navigateToCommunityMain("/community");
+    navigate("/community");
   };
 
   return (
