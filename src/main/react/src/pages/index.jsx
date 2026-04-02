@@ -7,6 +7,7 @@ export default function index(props){
     {/* <Header></Header> 추후에 헤더들어감 -> 왼쪽 위 로그(이리로)*/}
     <Routes>
         <Route path='/' element={< MainPage />}></Route> {/* 메인페이지 */}
+        <Route path='/'
         {/* 밑에 계속 추가 */}
     </Routes>
     {/* <Footer></Footer> 추후에 푸터들어감 */}
