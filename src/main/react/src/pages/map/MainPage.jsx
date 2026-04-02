@@ -4,6 +4,7 @@ import myLocationImg from '../../assets/my_location_marker.png';
 import iriroLogo from '../../assets/logo_iriro.png';
 import MapPage from './MapPage';
 import SearchOverlay from '../route/SearchOverlay'
+import { useNavigate } from 'react-router-dom';
 
 function MainPage() {
   const [showDangerSpots, setShowDangerSpots] = useState(false);
@@ -14,6 +15,14 @@ function MainPage() {
 
   // ⭐ 새로 추가된 부분: 검색 화면을 열고 닫을 스위치
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  
+  // 커뮤니티
+  const MainPage = () => {
+  const navigate = useNavigate();}
+  const navigateToCommunityMain = () => {
+    navigateToCommunityMain("/community");
+  };
 
   return (
     <div className="app-container">
@@ -80,11 +89,7 @@ function MainPage() {
             <div className="menu-popup">
               <button
                 className="btn-menu-item"
-                onClick={() => {
-                  // 나중에 여기에 진짜 커뮤니티 페이지로 넘어가는 코드를 넣으면 됩니다!
-                  alert("커뮤니티 페이지로 이동합니다! 📢");
-                  setIsMenuOpen(false); // 클릭 후에는 메뉴 다시 닫아주기
-                }}
+                onClick={navigateToCommunityMain}
               >
                 📢
               </button>
