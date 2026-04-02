@@ -58,8 +58,8 @@ export default function SearchOverlay({ onClose }) {
                 {isLoading && <p className="empty-search-text">검색 중입니다...</p>}
                 {!isLoading && results.length > 0 && (
                     <ul className="search-result-list">
-                        {results.map((poi) => (
-                            <li key={poi.id} className="search-result-item" onClick={() => console.log(poi.name)}> {/* 목록이 클릭되면 추후에 출발/목적지 선택, 정보 띄우기 */}
+                        {results.map((poi, index) => (
+                            <li key={`${poi.id}-${index}`} className="search-result-item" onClick={() => console.log(poi.name)}> {/* 목록이 클릭되면 추후에 출발/목적지 선택, 정보 띄우기 */}
                                 <div className="poi-name">{poi.name}</div>
                                 <div className="poi-address">{poi.upperAddrName} {poi.middleAddrName} {poi.lowerAddrName}</div>
                             </li>
