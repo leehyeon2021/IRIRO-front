@@ -22,7 +22,7 @@ export default function Login(props){
                 localStorage.setItem("token",token);
                 // token 이라는 이름을 서버로부터 받은 token 저장
                 alert('로그인에 성공하였습니다.');
-                location.href="/"; // 메인페이지 이동, (인증=로그인/로그아웃) 주의할 점 : navigate 대신에 location
+                location.href="/community"; // 메인페이지 이동, (인증=로그인/로그아웃) 주의할 점 : navigate 대신에 location
             }else{
                 alert('로그인에 실패하였습니다.');
             }
@@ -35,7 +35,7 @@ export default function Login(props){
     <div>
         <h3> 로그인 페이지 </h3>
         <form onSubmit={ login }> {/* 통신함수연결 */}
-            아이디 : <input name="email" placeholder="아이디 입력"/> <br />
+            아이디 : <input name="email" placeholder="아이디(이메일 형식) 입력"/> <br />
             비밀번호 : <input name="pwToken" placeholder="비밀번호 입력"/> <br />
             <button type="submit"> 로그인 </button>
             { /* submit : 현재 form 안에 있는 마크업들 전송 이벤트 */}
