@@ -5,8 +5,12 @@ import iriroLogo from '../../assets/logo_iriro.png';
 import MapPage from './MapPage';
 import SearchOverlay from '../route/SearchOverlay'
 import axios from 'axios';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 function MainPage() {
+  
+  const navigate = useNavigate();
+
   const [showDangerSpots, setShowDangerSpots] = useState(false);
   const [showSafeSpots, setShowSafeSpots] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -85,10 +89,10 @@ function MainPage() {
               <button
                 className="btn-menu-item"
                 onClick={() => {
-                  // 나중에 여기에 진짜 커뮤니티 페이지로 넘어가는 코드를 넣으면 됩니다!
+                  navigate('/community')
                   alert("커뮤니티 페이지로 이동합니다! 📢");
                   setIsMenuOpen(false); // 클릭 후에는 메뉴 다시 닫아주기
-                }}
+                  }}
               >
                 📢
               </button>
