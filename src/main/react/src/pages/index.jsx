@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import MainPage from './map/MainPage.jsx';
 import CommunityMain from './community/CommunityMain.jsx';
 import Login from './community/Login.jsx';
+import Header from '../components/layout/Header.jsx';
 
 
 export default function index(props){
