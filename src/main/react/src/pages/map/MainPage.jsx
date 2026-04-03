@@ -5,6 +5,7 @@ import iriroLogo from '../../assets/logo_iriro.png';
 import MapPage from './MapPage';
 import SearchOverlay from '../route/SearchOverlay'
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function MainPage() {
   const [showDangerSpots, setShowDangerSpots] = useState(false);
@@ -82,6 +83,10 @@ function MainPage() {
         <div style={{ position: 'relative' }}>
           {isMenuOpen && (
             <div className="menu-popup">
+              <button className='btn-menu-item'
+              onClick={() => {
+                  setIsMenuOpen(false);
+              }}> <Link to="/article">📰</Link> </button>
               <button
                 className="btn-menu-item"
                 onClick={() => {
