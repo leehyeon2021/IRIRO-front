@@ -41,13 +41,13 @@ export default function Header(props){
 
         {/* 비로그인 메뉴 */}
         { login == false && (<>
-                <Link to="/user/login"> 로그인 </Link> |
-                <Link to="/user/join"> 회원가입 </Link> |
+                <Link to="/login"> 로그인 </Link> |
+                <Link to="/join"> 회원가입 </Link> |
         </>)}
 
         {/* 로그인 메뉴 */}
         { login == true && (<>
-                <span> ooo님 , 환영합니다! </span> <br />
+                <span> {user.email}님 , 환영합니다! </span> <br />
                 <Link to="/user/myinfo"> 마이페이지 </Link>
                 <Link to="/board/rvwrite"> 글쓰기 </Link>
                 <button> 로그아웃 </button>
