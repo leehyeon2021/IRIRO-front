@@ -12,7 +12,8 @@ export default function index(props){
     <Routes>
         <Route path='/' element={< MainPage />}></Route> {/* 메인페이지 */}
         <Route path='/community' element={< CommunityMain />}></Route> {/* 커뮤니티 메인페이지 */}
-         <Route path='/login' element={< Login />}></Route> {/* 로그인 페이지 */}
+        <Route path='/login' element={< Login />}></Route> {/* 로그인 페이지 */}
+        <Route path='/write' element={< Write />}></Route> {/* 글쓰기 페이지 */}
 
         {/* 밑에 계속 추가 */}
     </Routes>
