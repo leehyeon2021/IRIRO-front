@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../css/MainPage.css';
 import myLocationImg from '../../assets/my_location_marker.png';
 import iriroLogo from '../../assets/logo_iriro.png';
 import MapPage from './MapPage';
 import SearchOverlay from '../route/SearchOverlay'
+import axios from 'axios';
 
 function MainPage() {
   const [showDangerSpots, setShowDangerSpots] = useState(false);
@@ -11,71 +12,74 @@ function MainPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   // ⭐ 1단계: 왼쪽 아래 메뉴를 열고 닫을 스위치 추가!
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  // ⭐ 새로 추가된 부분: 검색 화면을 열고 닫을 스위치
+  // 검색창 상태변화
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  // 현재 위치 데이터(기본값 - 테스트데이터 추후에 삭제)
+  const [currentLocation, setCurrentLocation] = useState({
+    latitude: 37.38953,
+    longitude: 126.95940,
+  })
+
+  useEffect(() => {
+    fetchMarkers();
+  }, [currentLocation])
+
+  const fetchMarkers = async () => {
+    try {
+      const safeResponse = await axios.get('http://localhost:8080/api/map/markers/safe', {
+        params: currentLocation,
+      })
+      const dangerResponse = await axios.get('http://localhost:8080/api/map/markers/danger', {
+        params: currentLocation,
+      })
+
+      setSafeMarkers(safeResponse.data);
+      setDangerMarkers(dangerResponse.data);
+    } catch (error) {
+      console.log('마커 조회 실패:', error);
+    }
+  }
+
+  // 안전, 위험 마커 상태 관리
+  const [safeMarkers, setSafeMarkers] = useState([]);
+  const [dangerMarkers, setDangerMarkers] = useState([]);
 
   return (
     <div className="app-container">
-        <MapPage />
-      {/* 지도 위에 덮는 커스텀 UI */}
-          <div
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              zIndex: 10,
-              pointerEvents: 'none'
-            }}
-          >
-        {/* 기존 코드 */}
-        <div className="my-location-wrapper">
-          <div className="radar-pulse"></div>
-          <img src={myLocationImg} alt="내 위치" className="my-location-character" />
-        </div>
+        <MapPage 
+          currentLocation={currentLocation}
+          safeMarkers={showSafeSpots ? safeMarkers : []}
+          dangerMarkers={showDangerSpots ? dangerMarkers : []}
+        />
 
-        <div className="marker-warning" style={{ top: '400px', left: '250px' }}></div>
-
-        {showDangerSpots && (
-          <>
-            <div className="marker-danger" style={{ top: '250px', left: '150px' }}></div>
-            <div className="marker-danger" style={{ top: '300px', left: '220px' }}></div>
-            <div className="marker-danger" style={{ top: '65%', left: '35%' }}></div>
-            <div className="marker-danger" style={{ top: '55%', left: '25%' }}></div>
-          </>
-        )}
-
-        {showSafeSpots && (
-          <>
-            <div className="marker-safe" style={{ top: '150px', left: '280px' }}></div>
-            <div className="marker-safe" style={{ top: '450px', left: '100px' }}></div>
-            <div className="marker-safe" style={{ top: '75%', left: '60%' }}></div>
-          </>
-        )}
-      </div>
-
-      {/* ⬆️ 상단 영역 */}
       <div className="top-wrapper">
-        <div className="search-bar" onClick={() => setIsSearchOpen(true)} style={{ cursor: 'pointer' }}>
-          <span className="logo"><img src={iriroLogo} alt="로고" className="logo" /></span>
+        <div className="search-bar"
+         onClick={() => setIsSearchOpen(true)}
+         style={{ cursor: 'pointer' }}>
+          <span className="logo">
+            <img src={iriroLogo} alt="로고" className="logo" />
+          </span>
           <span className="search-text">안전 경로 탐색</span>
           <span className="search-icon">🔍</span>
         </div>
+
         <div className="filter-buttons">
-          <button className="btn-filter btn-danger" onClick={() => setShowDangerSpots(!showDangerSpots)}>⚠️ 위험 구역</button>
-          <button className="btn-filter btn-safe" onClick={() => setShowSafeSpots(!showSafeSpots)}>✅ 안전 구역</button>
+
+          <button className="btn-filter btn-danger"
+          onClick={() => setShowDangerSpots(!showDangerSpots)}>
+            ⚠️ 위험 구역
+            </button>
+
+          <button className="btn-filter btn-safe"
+          onClick={() => setShowSafeSpots(!showSafeSpots)}>
+            ✅ 안전 구역
+            </button>
         </div>
       </div>
 
-      {/* ⬇️ 하단 영역 */}
       <div className="bottom-wrapper">
-
-        {/* ⭐ 2단계: 왼쪽 메뉴 버튼 그룹 (버튼과 팝업을 하나로 묶음) */}
         <div style={{ position: 'relative' }}>
-
-          {/* 스위치(isMenuOpen)가 켜졌을 때만 팝업 메뉴 보이기 */}
           {isMenuOpen && (
             <div className="menu-popup">
               <button
@@ -91,7 +95,6 @@ function MainPage() {
             </div>
           )}
 
-          {/* 기존 햄버거 메뉴 버튼 (누를 때마다 스위치 껐다 켜기) */}
           <button className="btn-menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             <div className="menu-bar"></div>
             <div className="menu-bar"></div>
@@ -99,14 +102,13 @@ function MainPage() {
           </button>
         </div>
 
-        {/* 오른쪽 신고 버튼 */}
+
         <button className="btn-menu btn-report" onClick={() => setIsModalOpen(true)}>
           <span>🚨</span>
           <span>신고</span>
         </button>
       </div>
 
-      {/* 모달창 조건부 렌더링 */}
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -123,11 +125,9 @@ function MainPage() {
         </div>
       )}
 
-      {/* 검색창이 눌렸을 때만 실행되는 조건부 렌더링 */}
       {isSearchOpen && (
         <SearchOverlay onClose={() => setIsSearchOpen(false)} /> // onClose 함수가 실행되면 검색창이 닫힘 (메인화면으로 옴)
       )}
-
     </div>
   );
 }
