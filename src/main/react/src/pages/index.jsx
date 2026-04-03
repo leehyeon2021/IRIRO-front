@@ -3,6 +3,7 @@ import MainPage from './map/MainPage.jsx';
 import CommunityMain from './community/CommunityMain.jsx';
 import Login from './community/Login.jsx';
 import Header from '../components/layout/Header.jsx';
+import Write from './community/Write.jsx';
 
 
 export default function index(props){
