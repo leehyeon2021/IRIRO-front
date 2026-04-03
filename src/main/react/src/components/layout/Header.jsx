@@ -59,7 +59,7 @@ export default function Header(props){
         { login == true && (<>
                 <span> {user.email}님 , 환영합니다! </span> <br />
                 <Link to="/user/myinfo"> 마이페이지 </Link>
-                <Link to="/board/rvwrite"> 글쓰기 </Link>
+                <Link to="/write"> 글쓰기 </Link>
                 <button onClick={logout}> 로그아웃 </button>
         </>)}
 
