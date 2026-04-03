@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import '../../css/MainPage.css';
-import myLocationImg from '../../assets/my_location_marker.png';
 import iriroLogo from '../../assets/logo_iriro.png';
 import MapPage from './MapPage';
 import SearchOverlay from '../route/SearchOverlay'
@@ -21,16 +20,18 @@ function MainPage() {
     longitude: 126.95940,
   })
 
+  // 위치가 바뀔 때 마다 실행
   useEffect(() => {
     fetchMarkers();
   }, [currentLocation])
 
+  // 마커 가져오기
   const fetchMarkers = async () => {
     try {
-      const safeResponse = await axios.get('http://localhost:8080/api/map/markers/safe', {
+      const safeResponse = await axios.get('http://localhost:8080/api/map/marker/safe', {
         params: currentLocation,
       })
-      const dangerResponse = await axios.get('http://localhost:8080/api/map/markers/danger', {
+      const dangerResponse = await axios.get('http://localhost:8080/api/map/marker/danger', {
         params: currentLocation,
       })
 
