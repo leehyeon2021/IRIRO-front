@@ -35,6 +35,16 @@ export default function Header(props){
       // [4] 헤더가 열리면 최초 1번 실행 , 로그인 상태 (백엔드 검증해야 한다.)
       useEffect( () => { getMyInfo(); } , [] )
 
+      // [5] 로그아웃
+      const logout = () => {
+        // 1) localStorage 에서 token 제거 , .removeItem()
+        localStorage.removeItem('token');
+        // 2) 로그인 상태 변경
+        setLogin(false);
+        // 3)
+        alert('로그아웃되었습니다.'); location.href="/community";
+      }
+
     return(<div>
         {/* 로그인 상태에 따른 메뉴 분기 */}
         <Link to="/"> 홈 </Link>
@@ -50,7 +60,7 @@ export default function Header(props){
                 <span> {user.email}님 , 환영합니다! </span> <br />
                 <Link to="/user/myinfo"> 마이페이지 </Link>
                 <Link to="/board/rvwrite"> 글쓰기 </Link>
-                <button> 로그아웃 </button>
+                <button onClick={logout}> 로그아웃 </button>
         </>)}
 
     
