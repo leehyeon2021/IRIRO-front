@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import '../../css/MainPage.css';
 import iriroLogo from '../../assets/logo_iriro.png';
 import MapPage from './MapPage';
@@ -14,6 +14,21 @@ function MainPage() {
   // 검색창 상태변화
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
+  // 안전, 위험 마커 상태 관리
+  const [safeMarkers, setSafeMarkers] = useState([]);
+  const [dangerMarkers, setDangerMarkers] = useState([]);
+
+  const visibleSafe = useMemo(
+    () => showSafeSpots ? safeMarkers : [],
+    [showSafeSpots, safeMarkers] 
+  );
+
+  const visibleDanger= useMemo(
+    () => showDangerSpots ? dangerMarkers : [],
+    [showDangerSpots, dangerMarkers] 
+  );
+
+
   // 현재 위치 데이터(기본값 - 테스트데이터 추후에 삭제)
   const [currentLocation, setCurrentLocation] = useState({
     latitude: 37.38953,
@@ -23,15 +38,16 @@ function MainPage() {
   // 위치가 바뀔 때 마다 실행
   useEffect(() => {
     fetchMarkers();
-  }, [currentLocation])
+  }, [currentLocation.latitude, currentLocation.longitude])
+// 원시값 비교로 변경 → 실제 값이 바뀔 때만 실행
 
   // 마커 가져오기
   const fetchMarkers = async () => {
     try {
-      const safeResponse = await axios.get('http://localhost:8080/api/map/marker/safe', {
+      const safeResponse = await axios.get(`${process.env.VITE_API_BASE_URL}/api/map/marker/safe`, {
         params: currentLocation,
       })
-      const dangerResponse = await axios.get('http://localhost:8080/api/map/marker/danger', {
+      const dangerResponse = await axios.get(`${process.env.VITE_API_BASE_URL}/api/map/marker/danger`, {
         params: currentLocation,
       })
 
@@ -42,16 +58,12 @@ function MainPage() {
     }
   }
 
-  // 안전, 위험 마커 상태 관리
-  const [safeMarkers, setSafeMarkers] = useState([]);
-  const [dangerMarkers, setDangerMarkers] = useState([]);
-
   return (
     <div className="app-container">
         <MapPage 
           currentLocation={currentLocation}
-          safeMarkers={showSafeSpots ? safeMarkers : []}
-          dangerMarkers={showDangerSpots ? dangerMarkers : []}
+          safeMarkers={visibleSafe}
+          dangerMarkers={visibleDanger}
         />
 
       <div className="top-wrapper">
