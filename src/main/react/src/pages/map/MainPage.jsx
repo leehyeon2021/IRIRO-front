@@ -44,10 +44,10 @@ function MainPage() {
   // 마커 가져오기
   const fetchMarkers = async () => {
     try {
-      const safeResponse = await axios.get(`${process.env.VITE_API_BASE_URL}/api/map/marker/safe`, {
+      const safeResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/map/marker/safe`, {
         params: currentLocation,
       })
-      const dangerResponse = await axios.get(`${process.env.VITE_API_BASE_URL}/api/map/marker/danger`, {
+      const dangerResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/map/marker/danger`, {
         params: currentLocation,
       })
 
