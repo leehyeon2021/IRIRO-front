@@ -1,5 +1,27 @@
 import axios from "axios";
 
-export const mapMarkerAPI = async({latitude, longitude}) =>{
-    // 위험, 안전 지역 마커 찍기
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+export const getSafeMarkers = async ({ latitude, longitude }) => {
+    const resposne = await axios.get(`${API_BASE_URL}/api/map/marker/safe`, {
+        params: { latitude, longitude },
+    });
+    return resposne.data;
+}
+
+export const getDangerMarkers = async ({latitude, longitude}) => {
+    const resposne = await axios.get(`${API_BASE_URL}/api/map/marker/danger`, {
+        params: { latitude, longitude },
+    });
+    return resposne.data;
+}
+
+export const mapMarkerAPI = async ({ latitude, longitude }) => {
+    const safeMarkers = await getSafeMarkers({latitude, longitude});
+    const dangerMarkers = await getDangerMarkers({latitude, longitude});
+
+    return{
+        safeMarkers,
+        dangerMarkers,
+    };
 }

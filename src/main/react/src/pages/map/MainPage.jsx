@@ -3,7 +3,7 @@ import '../../css/MainPage.css';
 import iriroLogo from '../../assets/logo_iriro.png';
 import MapPage from './MapPage';
 import SearchOverlay from '../route/SearchOverlay'
-import axios from 'axios';
+import { mapMarkerAPI } from '../../api/mapMarkAPI';
 
 function MainPage() {
   const [showDangerSpots, setShowDangerSpots] = useState(false);
@@ -43,17 +43,12 @@ function MainPage() {
 
   // 마커 가져오기
   const fetchMarkers = async () => {
-    try {
-      const safeResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/map/marker/safe`, {
-        params: currentLocation,
-      })
-      const dangerResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/map/marker/danger`, {
-        params: currentLocation,
-      })
+    try{
+      const { safeMarkers, dangerMarkers } = await mapMarkerAPI(currentLocation);
 
-      setSafeMarkers(safeResponse.data);
-      setDangerMarkers(dangerResponse.data);
-    } catch (error) {
+      setSafeMarkers(safeMarkers);
+      setDangerMarkers(dangerMarkers);
+    } catch ( error ){
       console.log('마커 조회 실패:', error);
     }
   }
