@@ -102,7 +102,11 @@ function MainPage() {
               <button className='btn-menu-item'
               onClick={() => {
                   setIsMenuOpen(false);
-              }}> <Link to="/article" style={{ textDecoration: "none"}}>📰</Link> </button>
+              }}>
+                <Link to="/article" style={{ textDecoration: "none"}}>
+                  📰
+                </Link> 
+              </button>
               <button
                 className="btn-menu-item"
                 onClick={() => {
