@@ -18,6 +18,9 @@ function MainPage() {
   const [safeMarkers, setSafeMarkers] = useState([]);
   const [dangerMarkers, setDangerMarkers] = useState([]);
 
+  // 검색창에서 장소를 선택했는 지 상태관리
+  const [selectedPlace, setSelectedPlace] = useState(null);
+
   const visibleSafe = useMemo(
     () => showSafeSpots ? safeMarkers : [],
     [showSafeSpots, safeMarkers] 
@@ -59,6 +62,7 @@ function MainPage() {
           currentLocation={currentLocation}
           safeMarkers={visibleSafe}
           dangerMarkers={visibleDanger}
+          selectedPlace={selectedPlace}
         />
 
       <div className="top-wrapper">
@@ -134,7 +138,10 @@ function MainPage() {
       )}
 
       {isSearchOpen && (
-        <SearchOverlay onClose={() => setIsSearchOpen(false)} /> // onClose 함수가 실행되면 검색창이 닫힘 (메인화면으로 옴)
+        <SearchOverlay 
+        onClose={() => setIsSearchOpen(false)}
+        onSelectPlace={setSelectedPlace}
+        /> // onClose 함수가 실행되면 검색창이 닫힘 (메인화면으로 옴)
       )}
     </div>
   );
