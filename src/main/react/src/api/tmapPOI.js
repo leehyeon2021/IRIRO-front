@@ -4,12 +4,14 @@ import axios from 'axios';
 // 🔍 Tmap POI 검색 API 호출 함수
 export const searchTmapPOI = async (keyword) => {
     try {
-        const response = await axios.get("https://apis.openapi.sk.com/tmap/pois", {
+        const response = await 
+        axios.get("https://apis.openapi.sk.com/tmap/pois", {
             params: {
                 version: 1,
                 searchKeyword: keyword,
                 format: "json",
-                count: 15, // 최대 15개까지 가져오기
+                count: 15,
+                sort: "score",
             },
             headers: {
                 appKey: import.meta.env.VITE_TMAP_JS_KEY,
