@@ -2,7 +2,7 @@ import { useState } from 'react';
 import '../../css/route/SearchOverlay.css';
 import { searchTmapPOI } from '../../api/tmapPOI.js';
 
-export default function SearchOverlay({ onClose }) {
+export default function SearchOverlay({ onClose, onSelectPlace }) {
     const [keyword, setKeyword] = useState("");
     const [results, setResults] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -19,6 +19,15 @@ export default function SearchOverlay({ onClose }) {
             setIsLoading(false);
         }
     };
+
+    const handleSelectPoi = (poi) => {
+        console.log("선택한 장소:", poi);
+
+        // 부모한테 선택한 장소 전달
+        onSelectPlace(poi);
+        // 검색창 닫기
+        onClose();
+    }
 
     return (
         <div className="search-screen-overlay">
@@ -59,9 +68,13 @@ export default function SearchOverlay({ onClose }) {
                 {!isLoading && results.length > 0 && (
                     <ul className="search-result-list">
                         {results.map((poi, index) => (
-                            <li key={`${poi.id}-${index}`} className="search-result-item" onClick={() => console.log(poi.name)}> {/* 목록이 클릭되면 추후에 출발/목적지 선택, 정보 띄우기 */}
+                            <li
+                                key={`${poi.id}-${index}`}
+                                className="search-result-item"
+                                onClick={() => handleSelectPoi(poi)}
+                            >
                                 <div className="poi-name">{poi.name}</div>
-                                <div className="poi-address">{poi.upperAddrName} {poi.middleAddrName} {poi.lowerAddrName}</div>
+                                <div className="poi-address">{poi.address}</div>
                             </li>
                         ))}
                     </ul>
@@ -73,3 +86,4 @@ export default function SearchOverlay({ onClose }) {
         </div>
     );
 }
+

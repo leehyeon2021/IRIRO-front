@@ -5,6 +5,7 @@ import MapPage from './MapPage';
 import SearchOverlay from '../route/SearchOverlay'
 import axios from 'axios';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { mapMarkerAPI } from '../../api/mapMarkAPI';
 
 function MainPage() {
 
@@ -21,6 +22,9 @@ function MainPage() {
   // 안전, 위험 마커 상태 관리
   const [safeMarkers, setSafeMarkers] = useState([]);
   const [dangerMarkers, setDangerMarkers] = useState([]);
+
+  // 검색창에서 장소를 선택했는 지 상태관리
+  const [selectedPlace, setSelectedPlace] = useState(null);
 
   const visibleSafe = useMemo(
     () => showSafeSpots ? safeMarkers : [],
@@ -47,17 +51,12 @@ function MainPage() {
 
   // 마커 가져오기
   const fetchMarkers = async () => {
-    try {
-      const safeResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/map/marker/safe`, {
-        params: currentLocation,
-      })
-      const dangerResponse = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/map/marker/danger`, {
-        params: currentLocation,
-      })
+    try{
+      const { safeMarkers, dangerMarkers } = await mapMarkerAPI(currentLocation);
 
-      setSafeMarkers(safeResponse.data);
-      setDangerMarkers(dangerResponse.data);
-    } catch (error) {
+      setSafeMarkers(safeMarkers);
+      setDangerMarkers(dangerMarkers);
+    } catch ( error ){
       console.log('마커 조회 실패:', error);
     }
   }
@@ -68,6 +67,7 @@ function MainPage() {
           currentLocation={currentLocation}
           safeMarkers={visibleSafe}
           dangerMarkers={visibleDanger}
+          selectedPlace={selectedPlace}
         />
 
       <div className="top-wrapper">
@@ -105,7 +105,7 @@ function MainPage() {
               }}>
                 <Link to="/article" style={{ textDecoration: "none"}}>
                   📰
-                </Link> 
+                </Link>
               </button>
               <button
                 className="btn-menu-item"
@@ -151,7 +151,10 @@ function MainPage() {
       )}
 
       {isSearchOpen && (
-        <SearchOverlay onClose={() => setIsSearchOpen(false)} /> // onClose 함수가 실행되면 검색창이 닫힘 (메인화면으로 옴)
+        <SearchOverlay
+        onClose={() => setIsSearchOpen(false)}
+        onSelectPlace={setSelectedPlace}
+        /> // onClose 함수가 실행되면 검색창이 닫힘 (메인화면으로 옴)
       )}
     </div>
   );

@@ -5,8 +5,9 @@ import "../../css/map/MapPage.css";
 import myLocationImg from '../../assets/my_location_marker.svg';
 import safeMarkerImg from "../../assets/safe.svg";
 import dangerMarkerImg from "../../assets/danger.svg";
+import selectedImg from "../../assets/selected.svg"
 
-export default function MapPage({ currentLocation, safeMarkers, dangerMarkers }) {
+export default function MapPage({ currentLocation, safeMarkers, dangerMarkers, selectedPlace }) {
   // Map로딩이 다 되면 마커가 찍히게끔 하기 위한 상태변수
   const [mapReady, setMapReady] = useState(false);
   // 사용할 useRef들
@@ -15,6 +16,7 @@ export default function MapPage({ currentLocation, safeMarkers, dangerMarkers })
   const myMarkerRef = useRef(null);
   const safeMarkerRefs = useRef([]);
   const dangerMarkerRefs = useRef([]);
+  const selectedMarkerRef = useRef(null);
 
   console.log(safeMarkerImg);
   console.log(dangerMarkerImg);
@@ -110,6 +112,30 @@ export default function MapPage({ currentLocation, safeMarkers, dangerMarkers })
       dangerMarkerRefs.current.push(marker);
     });
   }, [dangerMarkers, mapReady]);
+
+  // 5. 선택된 장소 보여주기
+  useEffect(() => {
+    if(!mapInstanceRef.current || !selectedPlace) return ;
+
+    const movePosition = new window.Tmapv2.LatLng(
+      selectedPlace.lat,
+      selectedPlace.lng
+    );
+
+    mapInstanceRef.current.setCenter(movePosition); // 지도를 해당 좌표로 이동
+
+    if(selectedMarkerRef.current){
+      selectedMarkerRef.current.setMap(null);
+    }
+
+    selectedMarkerRef.current = new window.Tmapv2.Marker({
+      position: movePosition,
+      map: mapInstanceRef.current,
+      icon: selectedImg,
+      iconSize: new window.Tmapv2.Size(32, 40),
+      title: selectedPlace.name || "선택한 장소",
+    });
+  }, [selectedPlace]);
 
 
   return <div ref={mapRef} className="map-container" />;
