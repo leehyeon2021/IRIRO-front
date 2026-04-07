@@ -6,10 +6,6 @@ import ArticleFind from "./ArticleFind";
 
 
 export default function ArticleMain( props ){
-
-    // 
-
-    // 
     return(<>
         <ArticleHeader/>
             <Routes>
@@ -17,6 +13,5 @@ export default function ArticleMain( props ){
                 <Route path="/search" element={<ArticleSearch/>}/>
                 <Route path="/find" element={<ArticleFind/>}/>
             </Routes>
-        <ArticleHeader/>
     </>)
 }
