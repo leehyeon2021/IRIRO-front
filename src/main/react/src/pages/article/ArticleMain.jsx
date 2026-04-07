@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import ArticleNavi from "./ArticleNavi.jsx";
+import ArticleHeader from "./ArticleHeader.jsx";
 import ArticleList from "./ArticleList";
 import ArticleSearch from "./ArticleSearch";
 import ArticleFind from "./ArticleFind";
@@ -11,11 +11,12 @@ export default function ArticleMain( props ){
 
     // 
     return(<>
-        <ArticleNavi/>
+        <ArticleHeader/>
             <Routes>
-                <Route path="/articles/list" element={<ArticleList/>}/>
-                <Route path="/articles/search" element={<ArticleSearch/>}/>
-                <Route path="/articles/find" element={<ArticleFind/>}/>
+                <Route path="/" element={<ArticleList/>}/>
+                <Route path="/search" element={<ArticleSearch/>}/>
+                <Route path="/find" element={<ArticleFind/>}/>
             </Routes>
+        <ArticleHeader/>
     </>)
 }
