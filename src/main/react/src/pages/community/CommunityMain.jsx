@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import "./CommunityMain.css";
 
+
 export default function CommunityMain() {
     return (
         <div className="community-layout">
