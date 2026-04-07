@@ -60,6 +60,9 @@ export default function MapPage({ currentLocation, safeMarkers, dangerMarkers })
     useEffect(() => {
       if( !mapInstanceRef.current || !window.Tmapv2) return;
 
+      safeMarkerRefs.current.forEach((marker) => marker.setMap(null));
+      safeMarkerRefs.current = [];
+
       safeMarkers.forEach((safe) => {
         const marker = new window.Tmapv2.Marker({
           position: new window.Tmapv2.LatLng(safe.latitude, safe.longitude),
