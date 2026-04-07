@@ -1,25 +1,35 @@
-import { Routes, Route } from 'react-router-dom';
-import MainPage from './map/MainPage.jsx';
-import CommunityMain from './community/CommunityMain.jsx';
-import ArticleMain from './article/ArticleMain.jsx';
-import Login from './community/Login.jsx';
-import Header from '../components/layout/Header.jsx';
-import Write from './community/Write.jsx';
+import React from "react";
+// 1. Routes와 Route를 react-router-dom에서 가져와야 합니다.
+import { Routes, Route } from "react-router-dom";
 
+import MainPage from "./map/MainPage.jsx";
+import CommunityMain from "./community/CommunityMain.jsx";
+import CommunityList from "./community/CommunityList.jsx";
+import ArticleMain from "./article/ArticleMain.jsx";
 
-export default function index(props){
-    return(
+// 2. 하위 경로에서 사용할 Login과 Write도 여기서 가져와야 합니다.
+import Login from "./community/Login.jsx";
+import Write from "./community/Write.jsx";
+
+// Header 경로 확인 (상위 폴더로 나갔다 들어가는 경로)
+import Header from "../components/layout/Header.jsx";
+
+export default function Index(props) {
+    return (
         <div id="wrap">
-            <Header/>
-    <Routes>
-        <Route path='/' element={< MainPage />}></Route> {/* 메인페이지 */}
-        <Route path='/community' element={< CommunityMain />}></Route>
-        <Route path='/article' element={ <ArticleMain/>}></Route>
-        <Route path='/login' element={< Login />}></Route> {/* 로그인 페이지 */}
-        <Route path='/write' element={< Write />}></Route> {/* 글쓰기 페이지 */}
+            <Header />
+            <Routes>
+                <Route path='/' element={<MainPage />} />
+                
+                {/* /community 그룹 */}
+                <Route path='/community' element={<CommunityMain />}>
+                    <Route index element={<CommunityList />} />
+                    <Route path='login' element={<Login />} />
+                    <Route path='write' element={<Write />} />
+                </Route>
 
-        {/* 밑에 계속 추가 */}
-    </Routes>
-    {/* <Footer></Footer> 추후에 푸터들어감 */}
-    </div>)
+                <Route path='/article' element={<ArticleMain />} />
+            </Routes>
+        </div>
+    );
 }
