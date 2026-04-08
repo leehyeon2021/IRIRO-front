@@ -1,8 +1,8 @@
 import React from "react";
 // 1. Routes와 Route를 react-router-dom에서 가져와야 합니다.
 import { Routes, Route } from "react-router-dom";
-
-import MainPage from "./map/MainPage.jsx";
+import MainLayout from "../components/layout/MainLayout.jsx";
+import MainPage from './map/MainPage.jsx';
 import CommunityMain from "./community/CommunityMain.jsx";
 import CommunityList from "./community/CommunityList.jsx";
 import ArticleMain from "./article/ArticleMain.jsx";
@@ -19,16 +19,16 @@ export default function Index(props) {
         <div id="wrap">
             <Header />
             <Routes>
-                <Route path='/' element={<MainPage />} />
-                
-                {/* /community 그룹 */}
-                <Route path='/community' element={<CommunityMain />}>
-                    <Route index element={<CommunityList />} />
-                    <Route path='login' element={<Login />} />
-                    <Route path='write' element={<Write />} />
+                <Route element={<MainLayout />}>
+                    <Route path='/' element={< MainPage />}></Route> {/* 메인페이지 */}
+                    {/* /community 그룹 */}
+                    <Route path='/community' element={<CommunityMain />}>
+                        <Route index element={<CommunityList />} />
+                        <Route path='login' element={<Login />} />
+                        <Route path='write' element={<Write />} />
+                    </Route>
+                    <Route path='/article' element={<ArticleMain />} />
                 </Route>
-
-                <Route path='/article' element={<ArticleMain />} />
             </Routes>
         </div>
     );

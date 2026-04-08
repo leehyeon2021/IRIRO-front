@@ -1,0 +1,28 @@
+/* 헤더 */
+.header-sticky{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    height: 50px;
+    padding: 0 10px;
+    font-size: 16px;
+    background-color: white;
+    border-bottom: 1px solid #eee;
+    flex-shrink: 0;
+}
+
+/* 메인*/
+.article-main-layout {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100dvh;
+}
+
+.article-content-area {
+    flex: 1; 
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+}
