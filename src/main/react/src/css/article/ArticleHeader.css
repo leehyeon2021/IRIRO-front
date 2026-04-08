@@ -1,9 +1,0 @@
-.header-sticky{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 10px;
-    font-size: 20px;
-    background-color: white;
-    flex-shrink: 0;
-}
