@@ -123,6 +123,7 @@ export default function MapPage({ currentLocation, safeMarkers, dangerMarkers, s
     );
 
     mapInstanceRef.current.setCenter(movePosition); // 지도를 해당 좌표로 이동
+    mapInstanceRef.current.setZoom(17); // 줌 레벨 조정
 
     if(selectedMarkerRef.current){
       selectedMarkerRef.current.setMap(null);
