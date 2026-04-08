@@ -152,7 +152,7 @@ function MainPage() {
                   className="btn-menu-item"
                   onClick={() => {
                     setIsMenuOpen(false);
-                    navigate("/article");
+                    navigate("/articles");
                   }}
                 >
                   📰
