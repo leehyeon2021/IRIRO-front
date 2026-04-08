@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "../../css/layout/Header.css";
 
 export default function Header(props){
   
@@ -45,24 +46,29 @@ export default function Header(props){
         alert('로그아웃되었습니다.'); location.href="/community";
       }
 
-    return(<div>
+      
+    return(
+        <div className="header-wrapper">
+        <div className="header-nav-container">
         {/* 로그인 상태에 따른 메뉴 분기 */}
-        <Link to="/community"> 게시판 홈 </Link> |
+        <Link to="/"> 지도 </Link> 
+        <Link to="/community"> 게시판 홈 </Link> 
 
         {/* 비로그인 메뉴 */}
         { login == false && (<>
-                <Link to="/login"> 로그인 </Link> |
-                <Link to="/join"> 회원가입 </Link> |
+                <Link to="/community/login"> 로그인 </Link> 
+                <Link to="/community/sign"> 회원가입 </Link> 
         </>)}
 
         {/* 로그인 메뉴 */}
         { login == true && (<>
-                <span> {user.email}님 , 환영합니다! </span> <br />
+                <span> {user.nickname}님 , 환영합니다! </span> <br />
                 <Link to="/user/myinfo"> 마이페이지 </Link>
-                <Link to="/write"> 글쓰기 </Link>
+                <Link to="/community/write"> 글쓰기 </Link>
                 <button onClick={logout}> 로그아웃 </button>
         </>)}
 
     
-    </div>)
+    </div>
+    </div>);
 }
