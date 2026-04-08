@@ -5,14 +5,15 @@ App.css
   font-family: sans-serif;
   display: flex;
   flex-direction: column;
-  height: 100vh;
   width: 100%;
+  height: 100%; /* 100vh 말고 100% */
   margin: 0;
   background-color: #e8eaf6;
   position: relative;
   overflow: hidden;
-  width: 100%;
+  box-sizing: border-box;
 }
+
 
 
 /* 상단 영역 */
