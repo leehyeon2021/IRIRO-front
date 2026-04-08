@@ -96,33 +96,37 @@ export default function ArticleList( props ){
 
                 {/* 기사 */}
                 <div className="article-container">
-                    {list.length > 0 ? (
-                        list.map((article, index) => (
-                            <div 
-                                key={article.articleId} 
-                                className="article-card"
-                                onClick={() => navigate(`/articles/find?articleId=${article.articleId}`)}
-                            >
-                                {/* 왼쪽 이미지 */}
-                                <div className="article-image">
-                                    <img src={article.articlePic}/>
-                                </div>
+                    {list.length > 0
+                        ? ( list.map((article, index) => 
+                            (
+                                <div
+                                    key={article.articleId}
+                                    className="article-card"
+                                    onClick={() => navigate(`/articles/find?articleId=${article.articleId}`)}
+                                >
+                                    {/* 왼쪽 이미지 */}
+                                    <div className="article-image">
+                                        <img src={article.articlePic}/>
+                                    </div>
 
-                                {/* 중앙 내용 */}
-                                <div className="article-info">
-                                    <h4 className="article-title">{article.articleTitle}</h4>
-                                    <p className="article-excerpt">{article.articleContent}</p>
-                                </div>
+                                    {/* 중앙 내용 */}
+                                    <div className="article-info">
+                                        <h4 className="article-title">{article.articleTitle}</h4>
+                                        <p className="article-excerpt">{article.articleContent}</p>
+                                    </div>
 
-                                {/* 우측 상단 숫자 */}
-                                <span className="article-number">{index + 1}</span>
+                                    {/* 우측 상단 숫자 */}
+                                    <span className="article-number">{index + 1}</span>
+                                </div>
+                                )
+                            ))
+                        :
+                        (
+                            <div className="find-loading">
+                                <div className="find-spinner"/>
                             </div>
-                        ))
-                    ) : (
-                        <div style={{ textAlign: 'center', padding: '20px', color: '#999' }}>
-                            검색 결과가 없습니다.
-                        </div>
-                    )}
+                        )
+                    }
                 </div>
             </div>
         </>
