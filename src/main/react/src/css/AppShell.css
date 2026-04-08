@@ -1,0 +1,52 @@
+.page-layout {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  background: #f5f6fa;
+  box-sizing: border-box;
+}
+
+/* 가운데 앱 */
+.app-shell {
+  width: 100%;
+  max-width: 430px;
+  min-height: 100vh;
+  position: relative;
+  background: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* 좌우 배너 영역 */
+.side-banner {
+  width: 280px;
+  min-height: 100vh;
+  padding: 20px 20px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 배너 박스 */
+.banner-box {
+  width: 100%;
+  max-width: 260px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 실제 이미지 */
+.banner {
+  display: block;
+  width: 100%;
+  max-width: 260px;
+  max-height: 900px;
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}

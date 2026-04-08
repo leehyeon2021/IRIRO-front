@@ -30,6 +30,7 @@ export const searchTmapPOI = async (keyword) => {
                 : poi.upperAddrName || "", // 주소 ( 시/도, 구/군, 동)
             lat: Number(poi.frontLat || poi.noorLat || 0), // 입구 좌표가 있다면 선택 없다면 중심 좌표 없다면 0
             lng: Number(poi.frontLon || poi.noorLon || 0),
+            category: poi.category,
             raw: poi, // 원본 보관용
         }));
     } catch (error) {

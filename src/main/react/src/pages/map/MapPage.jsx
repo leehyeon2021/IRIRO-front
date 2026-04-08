@@ -73,9 +73,6 @@ export default function MapPage({ currentLocation, safeMarkers, dangerMarkers, s
     useEffect(() => {
       if( !mapInstanceRef.current || !mapReady) return;
 
-      safeMarkerRefs.current.forEach((m) => m.setMap(null));
-      safeMarkerRefs.current = [];
-
       safeMarkerRefs.current.forEach((marker) => marker.setMap(null));
       safeMarkerRefs.current = [];
 
@@ -96,7 +93,7 @@ export default function MapPage({ currentLocation, safeMarkers, dangerMarkers, s
   useEffect(() => {
     if (!mapInstanceRef.current || !mapReady) return;
 
-    dangerMarkerRefs.current.forEach((m) => m.setMap(null));
+    dangerMarkerRefs.current.forEach((marker) => marker.setMap(null));
     dangerMarkerRefs.current = [];
 
 
@@ -115,7 +112,14 @@ export default function MapPage({ currentLocation, safeMarkers, dangerMarkers, s
 
   // 5. 선택된 장소 보여주기
   useEffect(() => {
-    if(!mapInstanceRef.current || !selectedPlace) return ;
+    if(!mapInstanceRef.current) return ;
+    if(!selectedPlace){ // 선택 안할 시 마커 지우기
+      if(selectedMarkerRef.current){
+        selectedMarkerRef.current.setMap(null);
+        selectedMarkerRef.current = null;
+      }
+      return ;
+    }
 
     const movePosition = new window.Tmapv2.LatLng(
       selectedPlace.lat,
@@ -123,6 +127,7 @@ export default function MapPage({ currentLocation, safeMarkers, dangerMarkers, s
     );
 
     mapInstanceRef.current.setCenter(movePosition); // 지도를 해당 좌표로 이동
+    mapInstanceRef.current.setZoom(17); // 줌 레벨 조정
 
     if(selectedMarkerRef.current){
       selectedMarkerRef.current.setMap(null);

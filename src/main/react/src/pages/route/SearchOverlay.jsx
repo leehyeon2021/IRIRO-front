@@ -24,7 +24,14 @@ export default function SearchOverlay({ onClose, onSelectPlace }) {
         console.log("선택한 장소:", poi);
 
         // 부모한테 선택한 장소 전달
-        onSelectPlace(poi);
+        onSelectPlace({
+            id: poi.id,
+            name: poi.name,
+            address: poi.address,
+            lat: poi.lat,
+            lng: poi.lng,
+            category: poi.category,
+        });
         // 검색창 닫기
         onClose();
     }
