@@ -23,7 +23,8 @@ export default function CommunityList() {
                 <div className="best-list">
                     {bestPosts.map(post => (
                         <div key={post.boardId} className="best-item">
-                            <span className="badge">인기</span> {post.boardTitle}
+                            <span className="badge">인기</span>
+                            <Link to={`/community/DetailView?boardId=${post.boardId}`}>{post.boardTitle}</Link>
                         </div>
                     ))}
                 </div>
@@ -43,7 +44,7 @@ export default function CommunityList() {
                             </div>
                             <div className="card-bottom">
                                 <span className="title-label">제목 : </span>
-                                <span className="title-content">{post.boardTitle}</span>
+                                <span className="title-content"><Link to={`/community/DetailView?boardId=${post.boardId}`}>{post.boardTitle}</Link></span>
                             </div>
                         </Link>
                     ))}
