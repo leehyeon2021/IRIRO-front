@@ -84,9 +84,11 @@ function MainPage() {
       />
 
       <div className="top-wrapper">
-        <div className="search-bar"
+        <div
+          className="search-bar"
           onClick={() => setIsSearchOpen(true)}
-          style={{ cursor: 'pointer' }}>
+          style={{ cursor: "pointer" }}
+        >
           <span className="logo">
             <img src={iriroLogo} alt="로고" className="logo" />
           </span>
@@ -95,14 +97,17 @@ function MainPage() {
         </div>
 
         <div className="filter-buttons">
-
-          <button className="btn-filter btn-danger"
-            onClick={() => setShowDangerSpots(!showDangerSpots)}>
+          <button
+            className="btn-filter btn-danger"
+            onClick={() => setShowDangerSpots(!showDangerSpots)}
+          >
             ⚠️ 위험 구역
           </button>
 
-          <button className="btn-filter btn-safe"
-            onClick={() => setShowSafeSpots(!showSafeSpots)}>
+          <button
+            className="btn-filter btn-safe"
+            onClick={() => setShowSafeSpots(!showSafeSpots)}
+          >
             ✅ 안전 구역
           </button>
         </div>
@@ -110,73 +115,76 @@ function MainPage() {
 
       {!selectedPlace && (
         <div className="bottom-wrapper">
-          <div style={{ position: 'relative' }}>
+          <div style={{ position: "relative" }}>
             {isMenuOpen && (
               <div className="menu-popup">
                 <button
                   className="btn-menu-item"
                   onClick={() => {
-                    // 나중에 여기에 진짜 커뮤니티 페이지로 넘어가는 코드를 넣으면 됩니다!
-                    alert("커뮤니티 페이지로 이동합니다! 📢");
-                    setIsMenuOpen(false); // 클릭 후에는 메뉴 다시 닫아주기
+                    setIsMenuOpen(false);
+                    navigate("/article");
+                  }}
+                >
+                  📰
+                </button>
+
+                <button
+                  className="btn-menu-item"
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    navigate("/community");
                   }}
                 >
                   📢
                 </button>
               </div>
             )}
-      <div className="bottom-wrapper">
-        <div style={{ position: 'relative' }}>
-          {isMenuOpen && (
-            <div className="menu-popup">
-              <button className='btn-menu-item'
-              onClick={() => {
-                  setIsMenuOpen(false);
-              }}>
-                <Link to="/article" style={{ textDecoration: "none"}}>
-                  📰
-                </Link>
-              </button>
-              <button
-                className="btn-menu-item"
-                onClick={() => {
-                  navigate('/community')
-                  alert("커뮤니티 페이지로 이동합니다! 📢");
-                  setIsMenuOpen(false); // 클릭 후에는 메뉴 다시 닫아주기
-                  }}
-              >
-                📢
-              </button>
-            </div>
-          )}
 
-            <button className="btn-menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            <button
+              className="btn-menu"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
               <div className="menu-bar"></div>
               <div className="menu-bar"></div>
               <div className="menu-bar"></div>
             </button>
           </div>
 
-
-          <button className="btn-menu btn-report" onClick={() => setIsModalOpen(true)}>
+          <button
+            className="btn-menu btn-report"
+            onClick={() => setIsModalOpen(true)}
+          >
             <span>🚨</span>
             <span>신고</span>
           </button>
         </div>
       )}
 
-
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
             <h2 className="modal-title">🚨 긴급 신고</h2>
-            <p className="modal-text">현재 위치를 기반으로<br />경찰에 긴급 신고하시겠습니까?</p>
+            <p className="modal-text">
+              현재 위치를 기반으로
+              <br />
+              경찰에 긴급 신고하시겠습니까?
+            </p>
             <div className="modal-buttons">
-              <button className="btn-modal btn-cancel" onClick={() => setIsModalOpen(false)}>취소</button>
-              <button className="btn-modal btn-confirm" onClick={() => {
-                alert("신고가 접수되었습니다!");
-                setIsModalOpen(false);
-              }}>신고하기</button>
+              <button
+                className="btn-modal btn-cancel"
+                onClick={() => setIsModalOpen(false)}
+              >
+                취소
+              </button>
+              <button
+                className="btn-modal btn-confirm"
+                onClick={() => {
+                  alert("신고가 접수되었습니다!");
+                  setIsModalOpen(false);
+                }}
+              >
+                신고하기
+              </button>
             </div>
           </div>
         </div>
@@ -187,7 +195,7 @@ function MainPage() {
           onClose={() => setIsSearchOpen(false)}
           onSelectPlace={(place) => {
             setSelectedPlace(place);
-            setIsSearchOpen(false); // 선택하면 검색창 닫기
+            setIsSearchOpen(false);
           }}
         />
       )}
@@ -196,7 +204,7 @@ function MainPage() {
         <PlaceDetailCard
           place={selectedPlace}
           onClose={() => setSelectedPlace(null)}
-          onRouteClick={handleRouteClick} // 길찾기를 눌렀는지!
+          onRouteClick={handleRouteClick}
         />
       )}
     </div>
