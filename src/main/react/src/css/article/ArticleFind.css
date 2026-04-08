@@ -1,0 +1,163 @@
+/* 로딩 */
+.find-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+}
+.find-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #e0e8f5;
+    border-top-color: #1A2E6E;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* 페이지 전체 */
+.find-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 20px 16px 40px;
+    font-family: 'Noto Sans KR', sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* 뒤로가기 버튼 */
+.find-back-btn {
+    background: none;
+    border: none;
+    color: #1A2E6E;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 8px 0;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: opacity 0.2s;
+    flex-shrink: 0;
+}
+.find-back-btn:hover {
+    opacity: 0.7;
+}
+
+/* 카드 */
+.find-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(26, 46, 110, 0.08);
+    padding: 28px 24px;
+    border: 1px solid #e8eef8;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* 제목 */
+.find-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1A2E6E;
+    line-height: 1.5;
+    margin: 0 0 14px;
+    flex-shrink: 0;
+}
+
+/* 정보 */
+.find-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e8eef8;
+    flex-shrink: 0;
+}
+.find-badge {
+    background: #1A2E6E;
+    color: #FFD700;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+}
+.find-meta-text {
+    font-size: 13px;
+    color: #666;
+}
+.find-meta-divider {
+    color: #ccc;
+    font-size: 12px;
+}
+
+/* 이미지 */
+.find-image-wrap {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+.find-image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+/* 기사 본문 박스 */
+.find-container{
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+    -webkit-overflow-scrolling: touch;
+}
+.find-container::-webkit-scrollbar {
+    width: 6px;
+}
+.find-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+.find-container::-webkit-scrollbar-thumb {
+    background: rgba(26, 46, 110, 0.15);
+    border-radius: 10px;
+}
+.find-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(26, 46, 110, 0.3);
+}
+
+/* 본문 */
+.find-content {
+    font-size: 15px;
+    line-height: 1.9;
+    color: #333;
+    margin-bottom: 24px;
+}
+.find-content p {
+    margin: 0 0 12px;
+}
+
+/* 원문 링크 */
+.find-link {
+    display: inline-block;
+    color: #1A2E6E;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 2px solid #FFD700;
+    padding-bottom: 2px;
+    transition: opacity 0.2s;
+}
+.find-link:hover {
+    opacity: 0.7;
+}
