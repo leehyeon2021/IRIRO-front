@@ -10,7 +10,6 @@ export default function CommunityMain() {
                 <h1>IRIRO COMMUNITY</h1>
             </header>
 
-            {/* 주소에 따라 List, Login, Write가 이 자리에 교체되어 나옴 */}
             <main className="commu-content">
                 <Outlet /> 
             </main>
