@@ -15,6 +15,7 @@ export default function ArticleMain( props ){
                     <Route path="/find" element={<ArticleFind/>}/>
                 </Routes>
                 </div>
+                <ArticleHeader/> {/* 헤더/푸터 선택 의논 필요 */}
         </div>
     )
 }
