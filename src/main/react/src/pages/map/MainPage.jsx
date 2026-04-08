@@ -1,8 +1,13 @@
 import React, { useEffect, useState, useMemo } from 'react';
+
 import '../../css/MainPage.css';
+
 import iriroLogo from '../../assets/logo_iriro.png';
+
 import MapPage from './MapPage';
+import PlaceDetailCard from './PlaceDetailCard';
 import SearchOverlay from '../route/SearchOverlay'
+
 import { mapMarkerAPI } from '../../api/mapMarkAPI';
 
 function MainPage() {
@@ -23,12 +28,12 @@ function MainPage() {
 
   const visibleSafe = useMemo(
     () => showSafeSpots ? safeMarkers : [],
-    [showSafeSpots, safeMarkers] 
+    [showSafeSpots, safeMarkers]
   );
 
-  const visibleDanger= useMemo(
+  const visibleDanger = useMemo(
     () => showDangerSpots ? dangerMarkers : [],
-    [showDangerSpots, dangerMarkers] 
+    [showDangerSpots, dangerMarkers]
   );
 
 
@@ -42,33 +47,42 @@ function MainPage() {
   useEffect(() => {
     fetchMarkers();
   }, [currentLocation.latitude, currentLocation.longitude])
-// 원시값 비교로 변경 → 실제 값이 바뀔 때만 실행
+  // 원시값 비교로 변경 → 실제 값이 바뀔 때만 실행
 
   // 마커 가져오기
   const fetchMarkers = async () => {
-    try{
+    try {
       const { safeMarkers, dangerMarkers } = await mapMarkerAPI(currentLocation);
 
       setSafeMarkers(safeMarkers);
       setDangerMarkers(dangerMarkers);
-    } catch ( error ){
+    } catch (error) {
       console.log('마커 조회 실패:', error);
     }
   }
 
+  const handleRouteClick = () => {
+    if (!selectedPlace) return;
+
+    // 여기에 길찾기 기능 추가
+
+    console.log("길찾기 목적지:", selectedPlace);
+    alert(`${selectedPlace.name}까지 길찾기 실행`);
+  };
+
   return (
     <div className="app-container">
-        <MapPage 
-          currentLocation={currentLocation}
-          safeMarkers={visibleSafe}
-          dangerMarkers={visibleDanger}
-          selectedPlace={selectedPlace}
-        />
+      <MapPage
+        currentLocation={currentLocation}
+        safeMarkers={visibleSafe}
+        dangerMarkers={visibleDanger}
+        selectedPlace={selectedPlace}
+      />
 
       <div className="top-wrapper">
         <div className="search-bar"
-         onClick={() => setIsSearchOpen(true)}
-         style={{ cursor: 'pointer' }}>
+          onClick={() => setIsSearchOpen(true)}
+          style={{ cursor: 'pointer' }}>
           <span className="logo">
             <img src={iriroLogo} alt="로고" className="logo" />
           </span>
@@ -79,47 +93,50 @@ function MainPage() {
         <div className="filter-buttons">
 
           <button className="btn-filter btn-danger"
-          onClick={() => setShowDangerSpots(!showDangerSpots)}>
+            onClick={() => setShowDangerSpots(!showDangerSpots)}>
             ⚠️ 위험 구역
-            </button>
+          </button>
 
           <button className="btn-filter btn-safe"
-          onClick={() => setShowSafeSpots(!showSafeSpots)}>
+            onClick={() => setShowSafeSpots(!showSafeSpots)}>
             ✅ 안전 구역
-            </button>
-        </div>
-      </div>
-
-      <div className="bottom-wrapper">
-        <div style={{ position: 'relative' }}>
-          {isMenuOpen && (
-            <div className="menu-popup">
-              <button
-                className="btn-menu-item"
-                onClick={() => {
-                  // 나중에 여기에 진짜 커뮤니티 페이지로 넘어가는 코드를 넣으면 됩니다!
-                  alert("커뮤니티 페이지로 이동합니다! 📢");
-                  setIsMenuOpen(false); // 클릭 후에는 메뉴 다시 닫아주기
-                }}
-              >
-                📢
-              </button>
-            </div>
-          )}
-
-          <button className="btn-menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            <div className="menu-bar"></div>
-            <div className="menu-bar"></div>
-            <div className="menu-bar"></div>
           </button>
         </div>
-
-
-        <button className="btn-menu btn-report" onClick={() => setIsModalOpen(true)}>
-          <span>🚨</span>
-          <span>신고</span>
-        </button>
       </div>
+
+      {!selectedPlace && (
+        <div className="bottom-wrapper">
+          <div style={{ position: 'relative' }}>
+            {isMenuOpen && (
+              <div className="menu-popup">
+                <button
+                  className="btn-menu-item"
+                  onClick={() => {
+                    // 나중에 여기에 진짜 커뮤니티 페이지로 넘어가는 코드를 넣으면 됩니다!
+                    alert("커뮤니티 페이지로 이동합니다! 📢");
+                    setIsMenuOpen(false); // 클릭 후에는 메뉴 다시 닫아주기
+                  }}
+                >
+                  📢
+                </button>
+              </div>
+            )}
+
+            <button className="btn-menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              <div className="menu-bar"></div>
+              <div className="menu-bar"></div>
+              <div className="menu-bar"></div>
+            </button>
+          </div>
+
+
+          <button className="btn-menu btn-report" onClick={() => setIsModalOpen(true)}>
+            <span>🚨</span>
+            <span>신고</span>
+          </button>
+        </div>
+      )}
+
 
       {isModalOpen && (
         <div className="modal-overlay">
@@ -138,10 +155,21 @@ function MainPage() {
       )}
 
       {isSearchOpen && (
-        <SearchOverlay 
-        onClose={() => setIsSearchOpen(false)}
-        onSelectPlace={setSelectedPlace}
-        /> // onClose 함수가 실행되면 검색창이 닫힘 (메인화면으로 옴)
+        <SearchOverlay
+          onClose={() => setIsSearchOpen(false)}
+          onSelectPlace={(place) => {
+            setSelectedPlace(place);
+            setIsSearchOpen(false); // 선택하면 검색창 닫기
+          }}
+        />
+      )}
+
+      {selectedPlace && (
+        <PlaceDetailCard
+          place={selectedPlace}
+          onClose={() => setSelectedPlace(null)}
+          onRouteClick={handleRouteClick} // 길찾기를 눌렀는지!
+        />
       )}
     </div>
   );

@@ -1,0 +1,86 @@
+.place-card {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+  background: #ffffff;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.12);
+  padding: 10px 16px 16px;
+  z-index: 120;
+}
+
+.place-card-handle {
+  width: 42px;
+  height: 4px;
+  background: #d9d9d9;
+  border-radius: 999px;
+  margin: 0 auto 12px;
+}
+
+.place-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.place-card-info {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
+
+.place-card-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #111;
+  line-height: 1.3;
+}
+
+.place-card-address {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: #666;
+  line-height: 1.4;
+}
+
+.place-card-close {
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: #f3f4f6;
+  font-size: 16px;
+  color: #333;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.place-card-actions {
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
+}
+
+.place-route-btn {
+  width: 170px;
+  height: 42px;
+  border: none;
+  border-radius: 12px;
+  background: #2563eb;
+  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.22);
+}
+
+.place-route-btn:active {
+  transform: scale(0.98);
+}
