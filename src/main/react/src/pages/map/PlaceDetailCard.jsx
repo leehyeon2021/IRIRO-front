@@ -1,6 +1,6 @@
 import "../../css/map/PlaceDetailCard.css";
 
-export default function PlaceDetailCard({ place, onClose, onRouteClick }) {
+export default function PlaceDetailCard({ place, onClose, onRouteClick, routeInfo }) {
   return (
     <div className="place-card">
       <div className="place-card-handle"></div>
@@ -16,11 +16,18 @@ export default function PlaceDetailCard({ place, onClose, onRouteClick }) {
         </button>
       </div>
 
-      <div className="place-card-actions">
-        <button className="place-route-btn" onClick={onRouteClick}>
-          길찾기
-        </button>
-      </div>
+      {routeInfo ? (
+        <div className="place-card-route-info">
+          <p>총 시간: {Math.ceil(routeInfo.totalTime / 60)}분</p>
+          <p>총 거리: {routeInfo.totalDistance}m</p>
+        </div>
+      ) : (
+        <div className="place-card-actions">
+          <button className="place-route-btn" onClick={onRouteClick}>
+            길찾기
+          </button>
+        </div>
+      )}
     </div>
   );
 }

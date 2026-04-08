@@ -7,7 +7,13 @@ import safeMarkerImg from "../../assets/safe.svg";
 import dangerMarkerImg from "../../assets/danger.svg";
 import selectedImg from "../../assets/selected.svg"
 
-export default function MapPage({ currentLocation, safeMarkers, dangerMarkers, selectedPlace }) {
+export default function MapPage({ 
+  currentLocation, 
+  safeMarkers, 
+  dangerMarkers, 
+  selectedPlace,
+  routePath
+ }) {
   // Map로딩이 다 되면 마커가 찍히게끔 하기 위한 상태변수
   const [mapReady, setMapReady] = useState(false);
   // 사용할 useRef들
@@ -17,6 +23,7 @@ export default function MapPage({ currentLocation, safeMarkers, dangerMarkers, s
   const safeMarkerRefs = useRef([]);
   const dangerMarkerRefs = useRef([]);
   const selectedMarkerRef = useRef(null);
+  const routeLineRef = useRef(null);
 
   console.log(safeMarkerImg);
   console.log(dangerMarkerImg);
@@ -141,6 +148,29 @@ export default function MapPage({ currentLocation, safeMarkers, dangerMarkers, s
       title: selectedPlace.name || "선택한 장소",
     });
   }, [selectedPlace]);
+
+  // 6. 안전 경로 그리기
+  useEffect(() => {
+    if (!mapInstanceRef.current || !window.Tmapv2) return;
+
+    if (routeLineRef.current) {
+      routeLineRef.current.setMap(null);
+      routeLineRef.current = null;
+    }
+
+    if (!routePath || routePath.length === 0) return;
+
+    const path = routePath.map((point) =>
+      new window.Tmapv2.LatLng(point.latitude, point.longitude)
+    );
+
+    routeLineRef.current = new window.Tmapv2.Polyline({
+      path,
+      strokeColor: "#2F80ED",
+      strokeWeight: 6,
+      map: mapInstanceRef.current,
+    });
+  }, [routePath]);
 
 
   return <div ref={mapRef} className="map-container" />;

@@ -10,6 +10,7 @@ import SearchOverlay from '../route/SearchOverlay'
 import axios from 'axios';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { mapMarkerAPI } from '../../api/mapMarkAPI';
+import { getSafeRoute } from '../../api/SafeRouteAPI';
 
 function MainPage() {
 
@@ -29,6 +30,10 @@ function MainPage() {
 
   // 검색창에서 장소를 선택했는 지 상태관리
   const [selectedPlace, setSelectedPlace] = useState(null);
+
+  // 안전 경로 상태
+  const [routePath, setRoutePath] = useState([]);
+  const [routeInfo, setRouteInfo] = useState(null);
 
   const visibleSafe = useMemo(
     () => showSafeSpots ? safeMarkers : [],
@@ -77,7 +82,7 @@ function MainPage() {
     };
   }, []);
 
-  // 위치가 바뀔 때 마다 실행
+  // 주변 마커 조회
   useEffect(() => {
     fetchMarkers();
   }, [currentLocation.latitude, currentLocation.longitude])
@@ -95,13 +100,31 @@ function MainPage() {
     }
   }
 
-  const handleRouteClick = () => {
+  // 안전 경로 호출
+  const handleRouteClick = async () => {
     if (!selectedPlace) return;
 
-    // 여기에 길찾기 기능 추가
+    try {
+      const response = await getSafeRoute({
+        startLat: currentLocation.latitude,
+        startLng: currentLocation.longitude,
+        endLat: selectedPlace.lat,
+        endLng: selectedPlace.lng,
+      });
 
-    console.log("길찾기 목적지:", selectedPlace);
-    alert(`${selectedPlace.name}까지 길찾기 실행`);
+      const detourRoute = response.detourRoute;
+
+      setRoutePath(detourRoute?.routePoints || []);
+      setRouteInfo({
+      totalTime: detourRoute?.totalTime ?? 0,
+      totalDistance: detourRoute?.totalDistance ?? 0,
+    });
+
+      console.log("안전 경로 응답:", response);
+    } catch (error) {
+      console.log("안전 경로 조회 실패:", error);
+      alert("안전 경로 조회에 실패했습니다.");
+    }
   };
 
   return (
@@ -111,6 +134,7 @@ function MainPage() {
         safeMarkers={visibleSafe}
         dangerMarkers={visibleDanger}
         selectedPlace={selectedPlace}
+        routePath={routePath}
       />
 
       <div className="top-wrapper">
@@ -225,6 +249,8 @@ function MainPage() {
           onClose={() => setIsSearchOpen(false)}
           onSelectPlace={(place) => {
             setSelectedPlace(place);
+            setRoutePath([]);
+            setRouteInfo(null);
             setIsSearchOpen(false);
           }}
         />
@@ -233,8 +259,13 @@ function MainPage() {
       {selectedPlace && (
         <PlaceDetailCard
           place={selectedPlace}
-          onClose={() => setSelectedPlace(null)}
+          onClose={() => {
+            setSelectedPlace(null);
+            setRoutePath([]);
+            setRouteInfo(null);
+          }}
           onRouteClick={handleRouteClick}
+          routeInfo={routeInfo}
         />
       )}
     </div>
