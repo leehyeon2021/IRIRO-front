@@ -44,7 +44,7 @@ export default function ArticleList( props ){
                     <div className='logo-area'>
                         <img src={logo}/>
                         <h3 style={{ fontWeight: 'bold', color: '#0056b3' }}> 
-                            우리 지역구 안전/범죄 기사 
+                            우리 지역구 범죄 기사
                         </h3>
                     </div>
 
