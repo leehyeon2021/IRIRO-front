@@ -1,0 +1,41 @@
+.community-layout {
+    max-width: 600px;
+    margin: 0 auto;
+    padding-top: 60px;
+    background-color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.commu-header {
+    padding: 40px 20px 30px;
+    text-align: center;
+    background: linear-gradient(to bottom, #ffffff, #f0f8ff);
+    border-bottom: 2px solid #7ea6ff;
+}
+
+.main-logo-img {
+    width: 100px;
+    height: auto;
+    margin-bottom: 15px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.commu-header h1 {
+    font-size: 1.8rem;
+    color: #7ea6ff;
+    font-weight: 900;
+    letter-spacing: 3px;
+    margin: 0;
+}
+
+.commu-content {
+    flex: 1;
+}
