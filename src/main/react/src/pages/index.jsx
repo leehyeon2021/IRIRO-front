@@ -11,6 +11,7 @@ import ArticleMain from "./article/ArticleMain.jsx";
 import Login from "./community/Login.jsx";
 import Sign from "./community/Sign.jsx";
 import Write from "./community/Write.jsx";
+import DetailView from "./community/detailView.jsx";
 
 
 export default function Index(props) {
@@ -25,6 +26,7 @@ export default function Index(props) {
                         <Route path='login' element={<Login />} />
                         <Route path='sign' element={<Sign />} />
                         <Route path='write' element={<Write />} />
+                        <Route path='DetailView' element={<DetailView/>} />
                     </Route>
                     <Route path='/article' element={<ArticleMain />} />
                 </Route>
