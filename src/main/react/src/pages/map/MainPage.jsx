@@ -47,6 +47,36 @@ function MainPage() {
     longitude: 126.95940,
   })
 
+  // 현재 위치 가져오기
+  useEffect(() => {
+    if (!navigator.geolocation) {
+      console.log("Geolocation 지원 안됨");
+      return;
+    }
+
+    // 변경 될 때 마다 조회 실행
+    const watchId = navigator.geolocation.watchPosition(
+      (position) => {
+        setCurrentLocation({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      },
+      (error) => {
+        console.log("현재 위치 조회 실패:", error);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 5000,
+      }
+    );
+
+    return () => {
+      navigator.geolocation.clearWatch(watchId);
+    };
+  }, []);
+
   // 위치가 바뀔 때 마다 실행
   useEffect(() => {
     fetchMarkers();

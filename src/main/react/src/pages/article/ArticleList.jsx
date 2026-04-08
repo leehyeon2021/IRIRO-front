@@ -1,32 +1,27 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import logo from '../../assets/logo_iriro.png'
 import axios from 'axios';
 import '../../css/article/ArticleList.css';
 
 export default function ArticleList( props ){
-
-    const navigate = useNavigate();
-    
-    // axios 서버로 부터 게시물을 저장하는 상태변수
     const [ list , setList ] = useState([]);
+    const [ searchParams , setSearchParams ] = useSearchParams();
+    const navigate = useNavigate();
 
-    // [폼 제출할 상태변수]
-    const [ selectDistrict , setSelectDistrict] = useState("전체");
-
-    // [ 폼 제출 ]
-    const district = async(e) => {
+    const currentDistrict = searchParams.get("articleDistrict") || "전체"
+    
+    // 불러오기
+    const getArticles = async(e) => {
         if(e){e.preventDefault();}
         
-        try{
-            let response;
+        try{            
             // 전체 조회
-            if(selectDistrict === "전체"){
-                response = await axios.get("http://localhost:8080/api/articles/list");
-            }else{
-                // 지역구 조회
-                response = await axios.get(`http://localhost:8080/api/articles?search=${selectDistrict}`);
+            let url = "http://localhost:8080/api/articles/list";
+            if(currentDistrict != "전체" ){
+                url = `http://localhost:8080/api/articles/search?articleDistrict=${currentDistrict}`;
             }
+            const response = await axios.get(url);
             setList(response.data);
         }catch(e){
             console.error("[데이터 불러오기 실패] ", e);
@@ -34,11 +29,17 @@ export default function ArticleList( props ){
     }
 
     // axios 실행 (컴포넌트 열릴 때 한 번)
-    useEffect( () => { district(); } , [] );
+    useEffect( () => {
+         getArticles(); 
+    } , [currentDistrict] );
     
+    const onSearch = (e) => {
+        e.preventDefault();
+        const selected = e.target.district.value;
+        setSearchParams( { articleDistrict : selected });
+    }
 
-    return (
-        <>
+    return (<>
             {/* 전체 컨테이너 배경*/}
             <div className="article-list-page">
                 
@@ -51,14 +52,16 @@ export default function ArticleList( props ){
                         </h3>
                     </div>
 
-                    <form onSubmit={district} style={{ marginTop: '5px' }}>
+                    <form onSubmit={onSearch} 
+                        style={{ marginTop: '5px' }}
+                    >
                         <div style={{ marginBottom: '5px', fontSize: '14px' }}> 
                             ⬇️ 서울 특별시 지역구 검색 ⬇️
                         </div>
-                        <select 
+                        <select
+                            name='district'
                             className="seoulDistrict"
-                            value={selectDistrict}
-                            onChange={(e) => setSelectDistrict(e.target.value)}
+                            defaultValue={currentDistrict}
                         >
                             <option value="전체">전체</option>
                             <option value="강남구">강남구</option>
