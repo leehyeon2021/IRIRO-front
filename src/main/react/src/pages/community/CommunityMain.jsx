@@ -7,7 +7,8 @@ export default function CommunityMain() {
     return (
         <div className="community-layout">
             <header className="commu-header">
-                <h1>IRIRO COMMUNITY</h1>
+                <div></div><h1>IRIRO COMMUNITY</h1>
+
             </header>
 
             <main className="commu-content">
