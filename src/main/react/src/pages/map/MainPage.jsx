@@ -7,10 +7,14 @@ import iriroLogo from '../../assets/logo_iriro.png';
 import MapPage from './MapPage';
 import PlaceDetailCard from './PlaceDetailCard';
 import SearchOverlay from '../route/SearchOverlay'
-
+import axios from 'axios';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { mapMarkerAPI } from '../../api/mapMarkAPI';
 
 function MainPage() {
+
+  const navigate = useNavigate();
+
   const [showDangerSpots, setShowDangerSpots] = useState(false);
   const [showSafeSpots, setShowSafeSpots] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -121,6 +125,30 @@ function MainPage() {
                 </button>
               </div>
             )}
+      <div className="bottom-wrapper">
+        <div style={{ position: 'relative' }}>
+          {isMenuOpen && (
+            <div className="menu-popup">
+              <button className='btn-menu-item'
+              onClick={() => {
+                  setIsMenuOpen(false);
+              }}>
+                <Link to="/article" style={{ textDecoration: "none"}}>
+                  📰
+                </Link>
+              </button>
+              <button
+                className="btn-menu-item"
+                onClick={() => {
+                  navigate('/community')
+                  alert("커뮤니티 페이지로 이동합니다! 📢");
+                  setIsMenuOpen(false); // 클릭 후에는 메뉴 다시 닫아주기
+                  }}
+              >
+                📢
+              </button>
+            </div>
+          )}
 
             <button className="btn-menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
               <div className="menu-bar"></div>
