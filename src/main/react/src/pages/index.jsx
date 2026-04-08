@@ -17,7 +17,6 @@ import Header from "../components/layout/Header.jsx";
 export default function Index(props) {
     return (
         <div id="wrap">
-            <Header />
             <Routes>
                 <Route element={<MainLayout />}>
                     <Route path='/' element={< MainPage />}></Route> {/* 메인페이지 */}
