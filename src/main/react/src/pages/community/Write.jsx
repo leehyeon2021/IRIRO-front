@@ -34,7 +34,7 @@ export default function Write(props){
     <div>
         <h3> 글쓰기 페이지 </h3>
         <form onSubmit={boardWrite}>
-            제목 : <input name="boardTitle"> </input> <br/>
+            제목 : <input name="boardTitle"></input> <br/>
             내용 : <textarea name="boardContent"></textarea> <br/>
             <button type="submit"> 등록 </button>
         </form>
