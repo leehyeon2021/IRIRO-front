@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo_iriro.png'
 import axios from 'axios';
 import '../../css/article/ArticleList.css';
 
 export default function ArticleList( props ){
 
+    const navigate = useNavigate();
+    
     // axios 서버로 부터 게시물을 저장하는 상태변수
     const [ list , setList ] = useState([]);
 
@@ -22,7 +25,7 @@ export default function ArticleList( props ){
                 response = await axios.get("http://localhost:8080/api/articles/list");
             }else{
                 // 지역구 조회
-                response = await axios.get(`http://localhost:8080/articles?search=${selectDistrict}`);
+                response = await axios.get(`http://localhost:8080/api/articles?search=${selectDistrict}`);
             }
             setList(response.data);
         }catch(e){
@@ -43,13 +46,13 @@ export default function ArticleList( props ){
                 <div className='main_top'>
                     <div className='logo-area'>
                         <img src={logo}/>
-                        <h3 style={{ fontWeight: 'bold', color: '#0056b3' }}> 
+                        <h3 style={{ margin: "0", fontWeight: 'bold', color: '#0056b3' }}> 
                             우리 지역구 범죄 기사
                         </h3>
                     </div>
 
-                    <form onSubmit={district} style={{ marginTop: '15px' }}>
-                        <div style={{ marginBottom: '10px', fontSize: '14px' }}> 
+                    <form onSubmit={district} style={{ marginTop: '5px' }}>
+                        <div style={{ marginBottom: '5px', fontSize: '14px' }}> 
                             ⬇️ 서울 특별시 지역구 검색 ⬇️
                         </div>
                         <select 
@@ -95,21 +98,20 @@ export default function ArticleList( props ){
                             <div 
                                 key={article.articleId} 
                                 className="article-card"
-                                onClick={() => navigate(`/article/view/${article.articleId}`)}
-                                style={{ cursor: 'pointer' }}
+                                onClick={() => navigate(`/articles/find?articleId=${article.articleId}`)}
                             >
-                                {/* 1. 왼쪽 이미지*/}
+                                {/* 왼쪽 이미지 */}
                                 <div className="article-image">
                                     <img src={article.articlePic}/>
                                 </div>
 
-                                {/* 2. 중앙 내용 */}
+                                {/* 중앙 내용 */}
                                 <div className="article-info">
                                     <h4 className="article-title">{article.articleTitle}</h4>
                                     <p className="article-excerpt">{article.articleContent}</p>
                                 </div>
 
-                                {/* 3. 우측 상단 숫자 index + 1 */}
+                                {/* 우측 상단 숫자 */}
                                 <span className="article-number">{index + 1}</span>
                             </div>
                         ))
