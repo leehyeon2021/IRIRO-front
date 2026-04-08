@@ -103,7 +103,7 @@ function MainPage() {
               onClick={() => {
                   setIsMenuOpen(false);
               }}>
-                <Link to="/article" style={{ textDecoration: "none"}}>
+                <Link to="/articles" style={{ textDecoration: "none"}}>
                   📰
                 </Link>
               </button>
