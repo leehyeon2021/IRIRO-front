@@ -2,8 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 
 import '../../css/MainPage.css';
 
-import iriroLogo from '../../assets/logo_iriro.png';
-
+import MainHeader from '../../components/layout/MainHeader';
 import MapPage from './MapPage';
 import PlaceDetailCard from './PlaceDetailCard';
 import SearchOverlay from '../route/SearchOverlay'
@@ -58,7 +57,7 @@ function MainPage() {
       console.log("Geolocation 지원 안됨");
       return;
     }
-    
+
     // 초기 로딩
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -142,90 +141,90 @@ function MainPage() {
 
   return (
     <div className="app-container">
-      <MapPage
-        currentLocation={currentLocation}
-        safeMarkers={visibleSafe}
-        dangerMarkers={visibleDanger}
-        selectedPlace={selectedPlace}
-        routePath={routePath}
-      />
+      <div className='map-shell'>
+        <MainHeader />
+        <MapPage
+          currentLocation={currentLocation}
+          safeMarkers={visibleSafe}
+          dangerMarkers={visibleDanger}
+          selectedPlace={selectedPlace}
+          routePath={routePath}
+        />
 
-      <div className="top-wrapper">
-        <div
-          className="search-bar"
-          onClick={() => setIsSearchOpen(true)}
-          style={{ cursor: "pointer" }}
-        >
-          <span className="logo">
-            <img src={iriroLogo} alt="로고" className="logo" />
-          </span>
-          <span className="search-text">안전 경로 탐색</span>
-          <span className="search-icon">🔍</span>
-        </div>
-
-        <div className="filter-buttons">
-          <button
-            className="btn-filter btn-danger"
-            onClick={() => setShowDangerSpots(!showDangerSpots)}
+        <div className="top-wrapper">
+          <div
+            className="search-bar"
+            onClick={() => setIsSearchOpen(true)}
+            style={{ cursor: "pointer" }}
           >
-            ⚠️ 위험 구역
-          </button>
-
-          <button
-            className="btn-filter btn-safe"
-            onClick={() => setShowSafeSpots(!showSafeSpots)}
-          >
-            ✅ 안전 구역
-          </button>
-        </div>
-      </div>
-
-      {!selectedPlace && (
-        <div className="bottom-wrapper">
-          <div style={{ position: "relative" }}>
-            {isMenuOpen && (
-              <div className="menu-popup">
-                <button
-                  className="btn-menu-item"
-                  onClick={() => {
-                    setIsMenuOpen(false);
-                    navigate("/articles");
-                  }}
-                >
-                  📰
-                </button>
-
-                <button
-                  className="btn-menu-item"
-                  onClick={() => {
-                    setIsMenuOpen(false);
-                    navigate("/community");
-                  }}
-                >
-                  📢
-                </button>
-              </div>
-            )}
-
-            <button
-              className="btn-menu"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              <div className="menu-bar"></div>
-              <div className="menu-bar"></div>
-              <div className="menu-bar"></div>
-            </button>
+            <span className="search-text">안전 경로 탐색</span>
+            <span className="search-icon">🔍</span>
           </div>
 
-          <button
-            className="btn-menu btn-report"
-            onClick={() => setIsModalOpen(true)}
-          >
-            <span>🚨</span>
-            <span>신고</span>
-          </button>
+          <div className="filter-buttons">
+            <button
+              className="btn-filter btn-danger"
+              onClick={() => setShowDangerSpots(!showDangerSpots)}
+            >
+              ⚠️ 위험 구역
+            </button>
+
+            <button
+              className="btn-filter btn-safe"
+              onClick={() => setShowSafeSpots(!showSafeSpots)}
+            >
+              ✅ 안전 구역
+            </button>
+          </div>
         </div>
-      )}
+
+        {!selectedPlace && (
+          <div className="bottom-wrapper">
+            <div style={{ position: "relative" }}>
+              {isMenuOpen && (
+                <div className="menu-popup">
+                  <button
+                    className="btn-menu-item"
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      navigate("/articles");
+                    }}
+                  >
+                    📰
+                  </button>
+
+                  <button
+                    className="btn-menu-item"
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      navigate("/community");
+                    }}
+                  >
+                    📢
+                  </button>
+                </div>
+              )}
+
+              <button
+                className="btn-menu"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+              >
+                <div className="menu-bar"></div>
+                <div className="menu-bar"></div>
+                <div className="menu-bar"></div>
+              </button>
+            </div>
+
+            <button
+              className="btn-menu btn-report"
+              onClick={() => setIsModalOpen(true)}
+            >
+              <span>🚨</span>
+              <span>신고</span>
+            </button>
+          </div>
+        )}
+      </div>
 
       {isModalOpen && (
         <div className="modal-overlay">

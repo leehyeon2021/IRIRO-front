@@ -14,12 +14,21 @@ App.css
   box-sizing: border-box;
 }
 
+/* 지도 + 헤더 + 지도 위 UI를 묶는 박스 */
+.map-shell {
+  position: relative;
+  width: 100%;
+  max-width: 620px;   /* 지도 너비에 맞춰 조절 */
+  height: 100vh;
+  overflow: hidden;
+  background-color: #fff;
+}
 
 
 /* 상단 영역 */
 .top-wrapper {
   position: absolute;
-  top: 20px;
+  top: calc(var(--main-header-height) + 20px); /* 기존 20px -> 헤더 아래 */
   left: 0;
   width: 100%;
   display: flex;
@@ -43,7 +52,6 @@ App.css
   box-sizing: border-box;
 }
 
-.logo { color: #4caf50; font-weight: bold; margin-right: 10px; }
 .search-text { flex: 1; color: #999; }
 .search-icon { font-size: 20px; color: #666; }
 
