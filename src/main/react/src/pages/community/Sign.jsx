@@ -20,7 +20,7 @@ export default function Sign(props){
         );
     
 
-    if(response.data == true){alert('회원가입에 성공했습니다!'); location.href="/";
+    if(response.data == true){alert('회원가입에 성공했습니다!'); location.href="./login";
     }else{alert('회원가입에 실패하였습니다!');}
 }
     
@@ -29,7 +29,7 @@ export default function Sign(props){
         <h3> 회원가입 페이지 </h3>
         <form onSubmit={onSignup}>
             아이디 : <input name="email"/> <br/>
-            비밀번호 : <input name="pwToken"/> <br/>
+            비밀번호 : <input name="pwToken" type="password"/> <br/>
             닉네임 : <input name="nickName"/>
             <button type="submit"> 가입 </button>
         </form>
