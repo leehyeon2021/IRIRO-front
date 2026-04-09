@@ -20,7 +20,7 @@ export default function Sign(props){
         );
     
 
-    if(response.data == true){alert('회원가입에 성공했습니다!'); location.href="/";
+    if(response.data == true){alert('회원가입에 성공했습니다!'); location.href="login";
     }else{alert('회원가입에 실패하였습니다!');}
 }
     
