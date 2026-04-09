@@ -12,14 +12,19 @@ export default function Write(props){
         // 1) 입력받은 값 가져오기
         const boardTitle = e.target.boardTitle.value;
         const boardContent = e.target.boardContent.value;
-        // 2) 객체 구성하지 않고 멀티(대용량/바이트) 폼 객체
-        const formData = new FormData(); // 대용량 폼을 지원하는 객체
-        formData.append('boardTitle',boardTitle ); // .append(속성명,값)
-        formData.append('boardContent',boardContent);
-        // 3) AXIOS
+        
+        // 2) 나는 파일 첨부 안 하니까 FormData 말고 기본 자바스크립트 객체 사용
+        const boardData = {
+            boardTitle:boardTitle,
+            boardContent:boardContent,
+            logId:1
+        };
+
+        // 3) axios
+
         const response = await axios.post(
-            'http://localhost:8080/api/board', // 서버 주소
-            formData, // 전송할 객체/폼
+            'http://localhost:8080/api/board/rvwrite', // 서버 주소
+            boardData, // 전송할 객체/폼
             { headers:{ Authorization : `Bearer ${token}`}}
         );
 
@@ -34,6 +39,7 @@ export default function Write(props){
     <div>
         <h3> 글쓰기 페이지 </h3>
         <form onSubmit={boardWrite}>
+            
             제목 : <input name="boardTitle"></input> <br/>
             내용 : <textarea name="boardContent"></textarea> <br/>
             <button type="submit"> 등록 </button>
