@@ -8,10 +8,10 @@ export default function Sign(props){
     // 폼 데이터 가져오기
    const email = e.target.email.value;
    const pwToken = e.target.pwToken.value;
-   const nickName = e.target.nickName.value;
+   const nickname = e.target.nickname.value;
 
    // 보낼 객체 만들기
-   const obj = {email,pwToken,nickName};
+   const obj = {email,pwToken,nickname};
 
    // AXIOS 통신
         const response = await axios.post(
@@ -28,9 +28,9 @@ export default function Sign(props){
     <div>
         <h3> 회원가입 페이지 </h3>
         <form onSubmit={onSignup}>
-            아이디 : <input name="email"/> <br/>
-            비밀번호 : <input name="pwToken"/> <br/>
-            닉네임 : <input name="nickName"/>
+            아이디 : <input name="email" placeholder="아이디(이메일 형식) 입력"/> <br/>
+            비밀번호 : <input name="pwToken" type="password" placeholder="비밀번호 입력"/> <br/>
+            닉네임 : <input name="nickname" placeholder="닉네임 입력"/>
             <button type="submit"> 가입 </button>
         </form>
     </div>
