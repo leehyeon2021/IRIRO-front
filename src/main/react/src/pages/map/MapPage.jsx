@@ -182,7 +182,7 @@ export default function MapPage({
 
     routeLineRef.current = new window.Tmapv2.Polyline({
       path,
-      strokeColor: "#2F80ED",
+      strokeColor: "#f52a2a",
       strokeWeight: 6,
       map: mapInstanceRef.current,
     });
