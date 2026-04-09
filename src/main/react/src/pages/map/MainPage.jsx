@@ -124,6 +124,11 @@ export default function MainPage() {
       });
 
       const detourRoute = response.detourRoute;
+      const logId = response.logId;
+
+      if(logId){
+        document.cookie = `logId=${logId}; path=/; max-age=86400`;
+      }
 
       setRoutePath(detourRoute?.routePoints || []);
       setRouteInfo({
