@@ -24,7 +24,7 @@ export default function Login(props){
         <h3> 로그인 페이지 </h3>
         <form onSubmit={ login }>
             아이디 : <input name="email" placeholder="아이디(이메일 형식) 입력"/> <br />
-            비밀번호 : <input name="pwToken" placeholder="비밀번호 입력"/> <br />
+            비밀번호 : <input name="pwToken" type="password" placeholder="비밀번호 입력"/> <br />
             <button type="submit"> 로그인 </button>
         </form>
     </div>
