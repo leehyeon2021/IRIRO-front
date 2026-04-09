@@ -46,11 +46,11 @@ function MainPage() {
   );
 
 
-  // 현재 위치 데이터(기본값 - 테스트데이터 추후에 삭제)
+  // 현재 위치 데이터
   const [currentLocation, setCurrentLocation] = useState({
-    latitude: 37.38953,
-    longitude: 126.95940,
-  })
+    latitude: 37.382902409385046,
+    longitude: 126.93171060773527
+  });
 
   // 현재 위치 가져오기
   useEffect(() => {
@@ -58,6 +58,19 @@ function MainPage() {
       console.log("Geolocation 지원 안됨");
       return;
     }
+    
+    // 초기 로딩
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setCurrentLocation({ latitude, longitude });
+        console.log("초기 위치 로드 완료:", latitude, longitude);
+      },
+      (error) => {
+        console.log("초기 위치 조회 실패:", error);
+      },
+      { enableHighAccuracy: true }
+    );
 
     // 변경 될 때 마다 조회 실행
     const watchId = navigator.geolocation.watchPosition(
@@ -116,9 +129,9 @@ function MainPage() {
 
       setRoutePath(detourRoute?.routePoints || []);
       setRouteInfo({
-      totalTime: detourRoute?.totalTime ?? 0,
-      totalDistance: detourRoute?.totalDistance ?? 0,
-    });
+        totalTime: detourRoute?.totalTime ?? 0,
+        totalDistance: detourRoute?.totalDistance ?? 0,
+      });
 
       console.log("안전 경로 응답:", response);
     } catch (error) {
