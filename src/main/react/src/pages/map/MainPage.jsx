@@ -6,12 +6,11 @@ import MainHeader from '../../components/layout/MainHeader';
 import MapPage from './MapPage';
 import PlaceDetailCard from './PlaceDetailCard';
 import SearchOverlay from '../route/SearchOverlay'
-import axios from 'axios';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { mapMarkerAPI } from '../../api/mapMarkAPI';
-import { getSafeRoute } from '../../api/SafeRouteAPI';
+import { getSafeRoute } from '../../api/safeRouteAPI';
 
-function MainPage() {
+export default function MainPage() {
 
   const navigate = useNavigate();
 
@@ -283,5 +282,3 @@ function MainPage() {
     </div>
   );
 }
-
-export default MainPage;
