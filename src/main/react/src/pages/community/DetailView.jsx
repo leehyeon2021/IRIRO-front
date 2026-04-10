@@ -6,7 +6,7 @@ import { useSearchParams } from "react-router-dom";
 export default function DetailView(props){
 
 
-    
+
     const replyWrite = async(e)=>{ e.preventDefault();
         try{
             const token = localStorage.getItem('token');
@@ -39,6 +39,14 @@ export default function DetailView(props){
             if(response.status===200){findById(); alert('따봉 성공!')}
         }catch(e){console.error("따봉 실패 : " , e);}
     };
+
+    const [replyList,setReplyList]=useState([]);
+
+    useEffect(()=>{
+        axios.get("http://localhost:8080/api/board/rplist")
+        .then(res => setReplyList(res.data))
+        .catch(err => console.log("에러 발생:", err));
+    },[]);
 
 
     // [1] 현재 URL 상의 쿼리스트링 값 가져오기 , 조회할 게시물 번호 가져오기
@@ -73,6 +81,11 @@ export default function DetailView(props){
                 댓글 내용 : <input name="replyContent" placeholder="댓글을 입력해주세요."></input>
                 <button type="submit">등록</button>
             </form>
+        </div>
+
+        <div>
+            <span>작성자 </span>
+            <span>내용</span>
         </div>
     </div>)
 }
