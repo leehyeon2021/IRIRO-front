@@ -144,10 +144,7 @@ export default function MainPage() {
         totalTime: detourRoute?.totalTime ?? 0,
         totalDistance: detourRoute?.totalDistance ?? 0,
       });
-
-      console.log("안전 경로 응답:", response);
     } catch (error) {
-      console.log("안전 경로 조회 실패:", error);
       alert("안전 경로 조회에 실패했습니다.");
     }
   };
