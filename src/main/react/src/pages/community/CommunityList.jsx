@@ -44,7 +44,8 @@ export default function CommunityList() {
                             </div>
                             <div className="card-bottom">
                                 <span className="title-label">제목 : </span>
-                                <span className="title-content"><Link to={`/community/DetailView?boardId=${post.boardId}`}>{post.boardTitle}</Link></span>
+                                <span className="title-content">
+                                <Link to={`/community/DetailView?boardId=${post.boardId}`}>{post.boardTitle}</Link></span>
                             </div>
                         </Link>
                     ))}
