@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import '../../css/article/ArticleMain.css';
 
-export default function ArticleHeader( props ){
+export default function ArticleNavi( props ){
     return(<>
             <div className="header-sticky">
                 <Link className="headerNavi" to="/"> ↩️ 지도로 돌아가기 </Link>

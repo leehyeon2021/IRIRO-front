@@ -6,20 +6,22 @@ body{
     text-decoration-line: none;
     font-weight: bold;
     color: rgb(34, 75, 211);
+    
 }
 
 /* 헤더 */
 .header-sticky{
+    flex-shrink: 0;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
-    height: 50px;
+    height: var(--main-header-height);
     padding: 0 10px;
     font-size: 16px;
     background-color: white;
-    border-bottom: 1px solid #eee;
-    flex-shrink: 0;
+    background: linear-gradient(to top, #ffffff, #f0f8ff);
+    border-top: 2px solid #7ea6ff;
 }
 
 /* 메인*/
