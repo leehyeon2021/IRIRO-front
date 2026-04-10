@@ -243,6 +243,7 @@ export default function MainPage() {
         <RouteReviewModal
           onClose={() => setShowReview(false)}
           onSuccess={() => {
+            deleteCookie("logId");
             resetArrivalReview();
             setRoutePath([]);
             setRouteInfo(null);
