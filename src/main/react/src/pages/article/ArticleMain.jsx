@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import ArticleNavi from "./ArticleNavi.jsx";
+import ArticleNavi from "../../components/layout/ArticleNavi.jsx";
 import ArticleList from "./ArticleList";
 import ArticleFind from "./ArticleFind";
 import '../../css/article/ArticleMain.css';
