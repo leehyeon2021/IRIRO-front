@@ -6,9 +6,12 @@ import MainHeader from '../../components/layout/MainHeader';
 import MapPage from './MapPage';
 import PlaceDetailCard from './PlaceDetailCard';
 import SearchOverlay from '../route/SearchOverlay'
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { mapMarkerAPI } from '../../api/mapMarkAPI';
 import { getSafeRoute } from '../../api/safeRouteAPI';
+import useArrivalReview from '../../utils/useArrivalReview';
+import RouteReviewModal from '../route/RouteReviewModal';
+import { deleteCookie, setCookie } from '../../utils/cookie';
 
 export default function MainPage() {
 
@@ -43,12 +46,16 @@ export default function MainPage() {
     [showDangerSpots, dangerMarkers]
   );
 
-
   // 현재 위치 데이터
   const [currentLocation, setCurrentLocation] = useState({
-    latitude: 37.382902409385046,
-    longitude: 126.93171060773527
+    // latitude: 37.382902409385046,
+    // longitude: 126.93171060773527
+    latitude: 37.3830580,
+    longitude: 126.9321137
   });
+
+  const { showReview, setShowReview, resetArrivalReview } = useArrivalReview({ currentLocation, selectedPlace, routePath });
+
 
   // 현재 위치 가져오기
   useEffect(() => {
@@ -126,9 +133,11 @@ export default function MainPage() {
       const detourRoute = response.detourRoute;
       const logId = response.logId;
 
-      if(logId){
-        document.cookie = `logId=${logId}; path=/; max-age=86400`;
+      if (logId) {
+        setCookie("logId", logId)
       }
+
+      resetArrivalReview();
 
       setRoutePath(detourRoute?.routePoints || []);
       setRouteInfo({
@@ -230,6 +239,19 @@ export default function MainPage() {
         )}
       </div>
 
+      {showReview && (
+        <RouteReviewModal
+          onClose={() => setShowReview(false)}
+          onSuccess={() => {
+            deleteCookie("logId");
+            resetArrivalReview();
+            setSelectedPlace(null);
+            setRoutePath([]);
+            setRouteInfo(null);
+          }}
+        />
+      )}
+
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -264,6 +286,8 @@ export default function MainPage() {
         <SearchOverlay
           onClose={() => setIsSearchOpen(false)}
           onSelectPlace={(place) => {
+            deleteCookie("logId");
+            resetArrivalReview();
             setSelectedPlace(place);
             setRoutePath([]);
             setRouteInfo(null);
@@ -276,6 +300,8 @@ export default function MainPage() {
         <PlaceDetailCard
           place={selectedPlace}
           onClose={() => {
+            deleteCookie("logId");
+            resetArrivalReview();
             setSelectedPlace(null);
             setRoutePath([]);
             setRouteInfo(null);

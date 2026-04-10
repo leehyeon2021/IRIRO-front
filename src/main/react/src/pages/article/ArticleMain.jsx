@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import ArticleHeader from "./ArticleHeader.jsx";
+import ArticleNavi from "../../components/layout/ArticleNavi.jsx";
 import ArticleList from "./ArticleList";
 import ArticleFind from "./ArticleFind";
 import '../../css/article/ArticleMain.css';
@@ -8,14 +8,13 @@ import '../../css/article/ArticleMain.css';
 export default function ArticleMain( props ){
     return(
         <div className="article-main-layout">
-            <ArticleHeader/>
             <div className="article-content-area">
                 <Routes>
                     <Route path="/" element={<ArticleList/>}/>
                     <Route path="/find" element={<ArticleFind/>}/>
                 </Routes>
                 </div>
-                <ArticleHeader/> {/* 헤더/푸터 선택 의논 필요 */}
+                <ArticleNavi/>
         </div>
     )
 }

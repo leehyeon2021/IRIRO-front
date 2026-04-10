@@ -33,11 +33,6 @@ export default function ArticleFind() {
     return (
         <div className="find-page">
 
-            {/* 뒤로가기 */}
-            <button className="find-back-btn" onClick={() => navigate(-1)}>
-                ↩️ 목록으로 돌아가기
-            </button>
-
             {/* 기사 본문 박스 */}
             <div className="find-card">
 
@@ -63,7 +58,9 @@ export default function ArticleFind() {
 
                     {/* 본문 */}
                     <div className="find-content">
-                        <p>{article.articleContent}</p>
+                        <p>{article.articleContent}...</p>
+                        <br/>
+                        <p className="find-content-etc"> 자세한 기사는 아래에서 확인하세요! </p>
                     </div>
 
                     {/* 원문 링크 */}
@@ -79,6 +76,10 @@ export default function ArticleFind() {
                     )}
                 </div>
             </div>
+            {/* 뒤로가기 */}
+            <button className="find-back-btn" onClick={() => navigate(-1)}>
+                ↩️ 목록으로 돌아가기
+            </button>
         </div>
     );
 }
