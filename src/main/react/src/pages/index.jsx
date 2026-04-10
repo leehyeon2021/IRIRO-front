@@ -27,6 +27,7 @@ export default function Index(props) {
                         <Route path='sign' element={<Sign />} />
                         <Route path='write' element={<Write />} />
                         <Route path='DetailView' element={<DetailView/>} />
+                       {/* <Route path='MyInfo' element={<MyInfo/>} /> */} 
                     </Route>
                     <Route path='/articles/*' element={<ArticleMain />} />
                 </Route>

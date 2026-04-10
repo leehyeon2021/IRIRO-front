@@ -4,6 +4,33 @@ import { useSearchParams } from "react-router-dom";
 
 
 export default function DetailView(props){
+
+
+    
+    const replyWrite = async(e)=>{ e.preventDefault();
+        try{
+            const token = localStorage.getItem('token');
+            const replyContent = e.target.replyContent.value;
+
+            const replyData = {
+            replyContent:replyContent,
+            boardId:boardId
+            };
+            
+            const replyResponse = await axios.post(
+                'http://localhost:8080/api/board/rp',
+                replyData,
+                { headers:{Authorization:`Bearer ${token}`}}
+            );
+
+            const data = replyResponse.data;
+            if(data == true){alert('댓글이 등록되었습니다.');
+            }
+
+
+        }catch(e){console.error('댓글 등록 실패 : ',e);}
+
+    }
        // 따봉 글 추천
     const ddabong = async() => {
         try{
@@ -40,5 +67,12 @@ export default function DetailView(props){
         <div> 내용 : {post.boardContent} </div>
         <div> 따봉 : {post.recommendCount} </div>
         <button on onClick={ddabong}> 따봉하기👍🏻 </button>
+
+        <div>
+            <form onSubmit={replyWrite}>
+                댓글 내용 : <input name="replyContent" placeholder="댓글을 입력해주세요."></input>
+                <button type="submit">등록</button>
+            </form>
+        </div>
     </div>)
 }
