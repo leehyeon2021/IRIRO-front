@@ -245,6 +245,7 @@ export default function MainPage() {
           onSuccess={() => {
             deleteCookie("logId");
             resetArrivalReview();
+            setSelectedPlace(null);
             setRoutePath([]);
             setRouteInfo(null);
           }}

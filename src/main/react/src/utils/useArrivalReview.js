@@ -52,8 +52,8 @@ export default function useArrivalReview({
 
   return {
     hasArrived,
-    showReviewModal,
-    setShowReviewModal,
+    showReview,
+    setShowReview,
     resetArrivalReview,
   };
 }
