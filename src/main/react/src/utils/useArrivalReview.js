@@ -25,7 +25,7 @@ export default function useArrivalReview({
   arriveDistance = 50,
 }) {
   const [hasArrived, setHasArrived] = useState(false);
-  const [showReviewModal, setShowReviewModal] = useState(false);
+  const [showReview, setShowReview] = useState(false);
 
   useEffect(() => {
     if (!selectedPlace || routePath.length === 0) return;
@@ -40,14 +40,14 @@ export default function useArrivalReview({
 
     if (distance <= arriveDistance) {
       setHasArrived(true);
-      setShowReviewModal(true);
+      setShowReview(true);
     }
   }, [currentLocation, selectedPlace, routePath, hasArrived, arriveDistance]);
 
   // 후기 리셋 함수
   const resetArrivalReview = () => {
     setHasArrived(false);
-    setShowReviewModal(false);
+    setShowReview(false);
   };
 
   return {
