@@ -4,9 +4,7 @@ import Index from "./pages/index.jsx";
 import {BrowserRouter} from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
     <BrowserRouter>
       <Index />
     </BrowserRouter>
-  </React.StrictMode>
 );
