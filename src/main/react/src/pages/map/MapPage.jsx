@@ -97,7 +97,7 @@ export default function MapPage({
         map: mapInstanceRef.current,
         icon: safeMarkerImg,
         iconSize: new window.Tmapv2.Size(32, 32),
-        title: safe.fac_name || safe.facType || "안전 시설",
+        title: safe.fac_name + "(" + safe.facType + ")" || "안전 시설",
       });
 
       safeMarkerRefs.current.push(marker);

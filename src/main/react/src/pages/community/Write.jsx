@@ -29,7 +29,7 @@ export default function Write(props){
         );
 
         const data = response.data;
-        if(data == true){alert('리뷰가 등록되었습니다.');
+        if(data == true){alert('리뷰가 등록되었습니다.'); location.href="/community";
         }else{
             alert('[오류] 다시 시도해주세요.');
         }
