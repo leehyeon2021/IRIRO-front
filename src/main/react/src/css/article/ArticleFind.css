@@ -146,6 +146,10 @@
 .find-content p {
     margin: 0 0 12px;
 }
+.find-content-etc{
+    color: #aaaaaa;
+    font-size: 12px;
+}
 
 /* 원문 링크 */
 .find-link {

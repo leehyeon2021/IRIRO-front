@@ -64,6 +64,7 @@ export default function ArticleFind() {
                     {/* 본문 */}
                     <div className="find-content">
                         <p>{article.articleContent}</p>
+                        <p className="find-content-etc"> ... ( 생략 ) </p>
                     </div>
 
                     {/* 원문 링크 */}
