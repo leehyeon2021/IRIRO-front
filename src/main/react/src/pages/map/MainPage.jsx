@@ -148,6 +148,12 @@ export default function MainPage() {
     }
   };
 
+  // 112
+  const callPolice = () => {
+    let phoneNumber = '이곳에전화번호넣기';
+    window.location.href = `tel:${phoneNumber}`;
+  };
+
   return (
     <div className="app-container">
       <div className='map-shell'>
@@ -267,7 +273,8 @@ export default function MainPage() {
               <button
                 className="btn-modal btn-confirm"
                 onClick={() => {
-                  alert("신고가 접수되었습니다!");
+                  callPolice();
+                  alert('전화 앱으로 이동합니다.');
                   setIsModalOpen(false);
                 }}
               >
