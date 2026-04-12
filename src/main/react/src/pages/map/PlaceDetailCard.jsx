@@ -20,6 +20,7 @@ export default function PlaceDetailCard({ place, onClose, onRouteClick, routeInf
         <div className="place-card-route-info">
           <p>총 시간: {Math.ceil(routeInfo.totalTime / 60)}분</p>
           <p>총 거리: {routeInfo.totalDistance}m</p>
+          <p>안전점수: {routeInfo.safetyScore}점</p>
         </div>
       ) : (
         <div className="place-card-actions">

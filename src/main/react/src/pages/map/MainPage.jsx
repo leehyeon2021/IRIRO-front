@@ -50,8 +50,8 @@ export default function MainPage() {
   const [currentLocation, setCurrentLocation] = useState({
     // latitude: 37.382902409385046,
     // longitude: 126.93171060773527
-    latitude: 37.5140548,
-    longitude: 126.9421099
+    latitude: 37.4999379,
+    longitude: 126.9202991
   });
 
   const { showReview, setShowReview, resetArrivalReview } = useArrivalReview({ currentLocation, selectedPlace, routePath });
@@ -129,7 +129,7 @@ export default function MainPage() {
         endLng: selectedPlace.lng,
       });
 
-      const detourRoute = response.detourRoute;
+      const selectedRoute = response.selectedRoute;
       const logId = response.logId;
 
       if (logId) {
@@ -138,10 +138,11 @@ export default function MainPage() {
 
       resetArrivalReview();
 
-      setRoutePath(detourRoute?.routePoints || []);
+      setRoutePath(selectedRoute?.routePoints || []);
       setRouteInfo({
-        totalTime: detourRoute?.totalTime ?? 0,
-        totalDistance: detourRoute?.totalDistance ?? 0,
+        totalTime: selectedRoute?.totalTime ?? 0,
+        totalDistance: selectedRoute?.totalDistance ?? 0,
+        safetyScore: response?.safety_score ?? 0,
       });
     } catch (error) {
       alert("안전 경로 조회에 실패했습니다.");
