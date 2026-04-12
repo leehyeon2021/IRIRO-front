@@ -1,12 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 export default function DetailView(props) {
     // [1] 변수 선언을 가장 최상단으로 올립니다 (에러 해결 핵심!)
-    const [params] = useSearchParams();
-    const boardId = params.get("boardId");
+    const { boardId } = useParams();
 
     // [2] 상태 변수들 선언
     const [post, setPost] = useState(null);
