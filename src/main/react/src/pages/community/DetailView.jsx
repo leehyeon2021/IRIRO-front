@@ -91,11 +91,21 @@ export default function DetailView(props) {
     const deletePost=()=>{
         console.log('1.삭제 버튼 클릭됨')
         if(window.confirm('리뷰를 정말 삭제하시겠습니까?')){
+            const token = localStorage.getItem('token');
             console.log('확인 창에서 확인 누름');
-            axios.delete(`http://localhost:8080/api/board/rvdelete?boardId=${boardId}`)
+            axios.delete(`http://localhost:8080/api/board/rvdelete`,
+                {
+                    params:{boardId:boardId},
+                    headers:{Authorization:`Bearer ${token}`}
+                }
+            )
             .then(res=>{
+                if(res.data === true){
                 alert("삭제가 완료되었습니다.");
                 navigate("/community");
+            }else{
+                alert('삭제 권한이 없습니다.(본인 게시글만 삭제 가능');
+            }
             })
             .catch(err=>{
                 alert("삭제 실패");
