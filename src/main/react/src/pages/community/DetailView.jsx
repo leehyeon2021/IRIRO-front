@@ -62,16 +62,44 @@ export default function DetailView(props) {
         } catch (e) { console.error("따봉 실패:", e); }
     };
 
+    const deleteReply=(id)=>{
+        if(window.confirm('댓글을 정말 삭제하시겠습니까?')){
+            const token = localStorage.getItem('token');
+
+            axios.delete(`http://localhost:8080/api/board/rpdelete`,
+                {
+                    params:{replyId:id},
+                    headers:{Authorization:`Bearer ${token}`}
+                }
+            )
+
+            .then(res=>{
+                if(res.data === true){
+                    alert('삭제가 완료되었습니다.');
+                    getReplyList();
+                }else{
+                    alert('삭제 권한이 없습니다.(본인 댓글만 삭제 가능');
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('서버와 통신 중 오류가 발생했습니다.');
+            });
+        }
+    }
+
     const deletePost=()=>{
-        if(alert('리뷰를 정말 삭제하시겠습니까?')){
+        console.log('1.삭제 버튼 클릭됨')
+        if(window.confirm('리뷰를 정말 삭제하시겠습니까?')){
+            console.log('확인 창에서 확인 누름');
             axios.delete(`http://localhost:8080/api/board/rvdelete?boardId=${boardId}`)
             .then(res=>{
                 alert("삭제가 완료되었습니다.");
                 navigate("/community");
             })
             .catch(err=>{
-                console.error("삭제 실패 : ",err);
-                alert('삭제 중 오류가 발생했습니다.');
+                alert("삭제 실패");
+                console.error(err);
             });
         }
     };
@@ -116,6 +144,7 @@ export default function DetailView(props) {
                     <div key={reply.replyId} style={{borderBottom: '1px solid #eee', padding: '5px'}}>
                         <div style={{fontWeight: 'bold'}}>작성자 : {reply.nickname}</div>
                         <div>{reply.replyContent}</div>
+                        <button onClick={ () => deleteReply(reply.replyId) }>삭제</button>
                     </div>
                 ))}
             </div>
