@@ -45,6 +45,34 @@ export default function MyInfo(props){
                 ))}
             </tbody>
         </table>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>댓글번호</th>
+                    <th>댓글내용</th>
+                    <th>게시글번호</th>
+                    <th>작성일</th>
+                </tr>
+            </thead>
+            <tbody>
+                {mylist?.myReplies && mylist.myReplies.length > 0 ? (
+                    mylist.myReplies.map((reply) => (
+                        <tr key={reply.replyId}>
+                            <td>{reply.replyId}</td>
+                            <td>{reply.replyContent}</td>
+                            <td>{reply.boardId}</td>
+                            <td>{reply.createdAt?.split('T')[0]}</td>
+                        </tr>
+                    ))
+                ) : (
+                    <tr>
+                        <td colSpan="4">작성한 댓글이 없습니다.</td>
+                    </tr>
+                )}
+            </tbody>
+           
+        </table>
     </div>
     </>)
     
