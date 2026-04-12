@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 export default function MyInfo(props){
+    const navigate = useNavigate();
 
     const[mylist,setMyList] = useState({boards:[] , replies:[] });
     const token = localStorage.getItem('token');
@@ -19,6 +21,10 @@ export default function MyInfo(props){
         })
         .catch(err=>console.log("에러발생:", err));
     },[]);
+
+    const clickDetail = (boardId) => {
+        navigate(`/community/DetailView/${boardId}`);
+    }
 
 
 
@@ -38,7 +44,7 @@ export default function MyInfo(props){
                 {mylist?.myBoards && mylist.myBoards.map((item) => (
                     <tr key={item.boardId}>
                     <td>{item.boardId}</td>
-                    <td>{item.boardTitle}</td>
+                    <td onClick={() => clickDetail(item.boardId)}>{item.boardTitle}</td>
                     <td>{item.nickname}</td>
                     <td>{item.createdAt}</td>
                 </tr>
