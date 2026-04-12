@@ -28,7 +28,7 @@ export default function Index() {
                         <Route path='login' element={<Login />} />
                         <Route path='sign' element={<Sign />} />
                         <Route path='write' element={<Write />} />
-                        <Route path='DetailView' element={<DetailView/>} />
+                        <Route path='DetailView/:boardId' element={<DetailView/>} />
                     </Route>
                     <Route path='/articles/*' element={<ArticleMain />} />
                 </Route>
