@@ -13,7 +13,8 @@ export default function MapPage({
   safeMarkers,
   dangerMarkers,
   selectedPlace,
-  routePath
+  routePath,
+  routeStartLocation
 }) {
   const [mapReady, setMapReady] = useState(false);
 
@@ -29,6 +30,9 @@ export default function MapPage({
   const routeLineRef = useRef(null);
   const startMarkerRef = useRef(null);
   const endMarkerRef = useRef(null);
+
+  // fitBounds 1회용 플래그
+  const hasFittedRouteRef = useRef(false);
 
   // 1. 지도 최초 생성
   useEffect(() => {
@@ -67,7 +71,7 @@ export default function MapPage({
     }
 
     if (myMarkerRef.current) {
-      myMarkerRef.current.setMap(null);
+      myMarkerRef.current.setPosition(center);
     }
     myMarkerRef.current = new window.Tmapv2.Marker({
       position: center,
@@ -295,20 +299,31 @@ export default function MapPage({
     if (!mapInstanceRef.current || !window.Tmapv2 || !mapReady) return;
     if (!routePath || routePath.length === 0) return;
 
+    if (hasFittedRouteRef.current) return;
+
     const bounds = new window.Tmapv2.LatLngBounds();
 
     routePath.forEach((point) => {
       bounds.extend(new window.Tmapv2.LatLng(Number(point.latitude), Number(point.longitude)));
     });
 
-    bounds.extend(new window.Tmapv2.LatLng(currentLocation.latitude, currentLocation.longitude));
+    // 현재 위치 대신 고정 출발지를 bounds에 포함
+    if (routeStartLocation) {
+      bounds.extend(
+        new window.Tmapv2.LatLng(
+          routeStartLocation.latitude,
+          routeStartLocation.longitude
+        )
+      );
+    }
 
     if (selectedPlace) {
       bounds.extend(new window.Tmapv2.LatLng(selectedPlace.lat, selectedPlace.lng));
     }
 
     mapInstanceRef.current.fitBounds(bounds);
-  }, [routePath, selectedPlace, currentLocation.latitude, currentLocation.longitude, mapReady]);
+    hasFittedRouteRef.current = true; // 이후 현재 위치가 바뀌어도 다시 fitBounds 안 하게 막기
+  }, [routePath, selectedPlace, routeStartLocation, mapReady]);
 
   return <div ref={mapRef} className="map-container" />;
 }
