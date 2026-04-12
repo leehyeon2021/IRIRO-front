@@ -8,6 +8,10 @@
     flex-direction: column;
 }
 
+.mini-title{
+    font-size: 13px;
+}
+
 .commu-header {
     padding: 40px 20px 30px;
     text-align: center;
