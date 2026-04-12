@@ -19,7 +19,7 @@ export const searchTmapPOI = async (keyword) => {
         });
 
         // 티맵 응답 구조에서 실제 장소 배열(poi)만 쏙 뽑아냅니다.
-        const poiData = response.data?.searchPoiInfo?.pois?.poi;
+        const poiData = response.data?.searchPoiInfo?.pois?.poi ?? [];
 
         // 검색 결과가 있으면 배열을, 없으면 빈 배열을 반환
         return poiData.map((poi) => ({
