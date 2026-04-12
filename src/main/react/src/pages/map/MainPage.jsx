@@ -142,6 +142,7 @@ export default function MainPage() {
       setRouteInfo({
         totalTime: selectedRoute?.totalTime ?? 0,
         totalDistance: selectedRoute?.totalDistance ?? 0,
+        safetyScore: response?.safety_score ?? 0,
       });
     } catch (error) {
       alert("안전 경로 조회에 실패했습니다.");
