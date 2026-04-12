@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 export default function DetailView(props) {
     // [1] 변수 선언을 가장 최상단으로 올립니다 (에러 해결 핵심!)
@@ -49,6 +49,8 @@ export default function DetailView(props) {
         } catch (e) { console.error('댓글 등록 실패:', e); }
     };
 
+    const navigate = useNavigate();
+
     // 따봉(추천) 기능
     const ddabong = async () => {
         try {
@@ -58,6 +60,20 @@ export default function DetailView(props) {
                 findById(); // 데이터 갱신
             }
         } catch (e) { console.error("따봉 실패:", e); }
+    };
+
+    const deletePost=()=>{
+        if(alert('리뷰를 정말 삭제하시겠습니까?')){
+            axios.delete(`http://localhost:8080/api/board/rvdelete?boardId=${boardId}`)
+            .then(res=>{
+                alert("삭제가 완료되었습니다.");
+                navigate("/community");
+            })
+            .catch(err=>{
+                console.error("삭제 실패 : ",err);
+                alert('삭제 중 오류가 발생했습니다.');
+            });
+        }
     };
 
     // [4] 실행 시점 제어
@@ -78,6 +94,7 @@ export default function DetailView(props) {
             <h3> 게시물 상세 </h3>
             <div style={{borderBottom: '1px solid #ccc', paddingBottom: '10px'}}>
                 <div> 작성자 : {post.nickname} | 작성일 : {post.createdAt} </div>
+                <button onClick={deletePost}>삭제</button>
                 <div> 제목 : {post.boardTitle} </div>
                 <div> 내용 : {post.boardContent} </div>
                 <div> 따봉 : {post.recommendCount} </div>
