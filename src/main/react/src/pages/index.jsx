@@ -11,10 +11,10 @@ import ArticleMain from "./article/ArticleMain.jsx";
 import Login from "./community/Login.jsx";
 import Sign from "./community/Sign.jsx";
 import Write from "./community/Write.jsx";
-import DetailView from "./community/detailView.jsx";
+import DetailView from "./community/DetailView.jsx";
 
 
-export default function Index(props) {
+export default function Index() {
     return (
         <div id="wrap">
             <Routes>
