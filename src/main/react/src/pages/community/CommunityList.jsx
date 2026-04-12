@@ -24,7 +24,7 @@ export default function CommunityList() {
                     {bestPosts.map(post => (
                         <div key={post.boardId} className="best-item">
                             <span className="badge">인기</span>
-                            <Link to={`/community/DetailView?boardId=${post.boardId}`}>{post.boardTitle}</Link>
+                            <Link to={`/community/DetailView/${post.boardId}`}>{post.boardTitle}</Link>
                         </div>
                     ))}
                 </div>
@@ -36,7 +36,8 @@ export default function CommunityList() {
                 <h3 className="section-title">📬 전체 게시글 목록</h3>
                 <div className="post-grid">
                     {postList.map((post) => (
-                        <Link to={`/community/DetailView?boardId=${post.boardId}`} className="post-card">
+
+                        <Link to={`/community/DetailView/${post.boardId}`} className="post-card">
                             <div className="card-top">
                                 <span>번호 : {post.boardId}</span>
                                 <span>작성일 : {post.createDate?.split("T")[0] || '2026-04-08'}</span>
