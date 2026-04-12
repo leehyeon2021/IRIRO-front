@@ -62,7 +62,7 @@ export default function Header(props){
 
         {/* 로그인 메뉴 */}
         { login == true && (<>
-                <Link to="/user/myinfo"> {user.nickname} 님의 마이페이지 </Link>
+                <Link to="/MyInfo"> {user.nickname} 님의 마이페이지 </Link>
                 <Link to="/community/write"> 글쓰기 </Link>
                 <button onClick={logout}> 로그아웃 </button>
         </>)}
