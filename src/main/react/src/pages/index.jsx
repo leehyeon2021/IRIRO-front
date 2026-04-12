@@ -12,6 +12,7 @@ import Login from "./community/Login.jsx";
 import Sign from "./community/Sign.jsx";
 import Write from "./community/Write.jsx";
 import DetailView from "./community/DetailView.jsx";
+import MyInfo from "./community/MyInfo.jsx";
 
 
 export default function Index() {
@@ -20,6 +21,7 @@ export default function Index() {
             <Routes>
                 <Route element={<MainLayout />}>
                     <Route path='/' element={< MainPage />}></Route> {/* 메인페이지 */}
+                    <Route path='/MyInfo' element={<MyInfo/>} /> 
                     {/* /community 그룹 */}
                     <Route path='/community' element={<CommunityMain />}>
                         <Route index element={<CommunityList />} />
@@ -27,7 +29,6 @@ export default function Index() {
                         <Route path='sign' element={<Sign />} />
                         <Route path='write' element={<Write />} />
                         <Route path='DetailView' element={<DetailView/>} />
-                       {/* <Route path='MyInfo' element={<MyInfo/>} /> */} 
                     </Route>
                     <Route path='/articles/*' element={<ArticleMain />} />
                 </Route>
