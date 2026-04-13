@@ -4,10 +4,9 @@
     padding: 20px;
     background-color: #f0f8ff;
     min-height: 100vh;
-    font-family: 'Pretendard', sans-serif; /* 폰트가 훨씬 깔끔해집니다 */
+    font-family: 'Pretendard', sans-serif; 
 }
 
-/* 게시글 본문 카드 */
 .post-main-card {
     background: white;
     border: 2px solid #7ea6ff;
@@ -51,10 +50,9 @@
     color: #444;
 }
 
-/* 따봉하기 버튼 가운데 정렬 */
 .post-footer {
     margin-top: 30px;
-    text-align: center; /* 버튼을 가운데로 */
+    text-align: center; 
 }
 
 .ddabong-count {
@@ -82,7 +80,7 @@
     background-color: #5a8eff;
 }
 
-/* 댓글 영역 스타일링 (중요!) */
+
 .reply-section {
     background: white;
     border-radius: 15px;
@@ -98,7 +96,6 @@
     color: #333;
 }
 
-/* 댓글 입력창 가로로 이쁘게 */
 .reply-form {
     display: flex;
     gap: 10px;
@@ -123,7 +120,6 @@
     cursor: pointer;
 }
 
-/* 개별 댓글 디자인 */
 .reply-item {
     background-color: #fcfdff;
     border-radius: 10px;
@@ -151,8 +147,11 @@
     background: #ffebeb;
     color: #ff5e5e;
     border: none;
-    padding: 3px 8px;
+    padding: 2px 13px;
     border-radius: 5px;
     font-size: 0.75rem;
     cursor: pointer;
+    white-space: nowrap; 
+    display: inline-block; 
+    min-width: fit-content;
 }
