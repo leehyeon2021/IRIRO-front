@@ -36,6 +36,9 @@ export default function MainPage() {
   const [routePath, setRoutePath] = useState([]);
   const [routeInfo, setRouteInfo] = useState(null);
 
+  // 안전 경로 호출 당시 출발 위치 저장
+  const [routeStartLocation, setRouteStartLocation] = useState(null);
+
   const visibleSafe = useMemo(
     () => showSafeSpots ? safeMarkers : [],
     [showSafeSpots, safeMarkers]
@@ -50,8 +53,8 @@ export default function MainPage() {
   const [currentLocation, setCurrentLocation] = useState({
     // latitude: 37.382902409385046,
     // longitude: 126.93171060773527
-    latitude: 37.4999379,
-    longitude: 126.9202991
+    latitude: 37.4965,
+    longitude: 127.0282
   });
 
   const { showReview, setShowReview, resetArrivalReview } = useArrivalReview({ currentLocation, selectedPlace, routePath });
@@ -122,6 +125,11 @@ export default function MainPage() {
     if (!selectedPlace) return;
 
     try {
+      const fixedStartLocation = {
+        latitude: currentLocation.latitude,
+        longitude: currentLocation.longitude,
+      };
+
       const response = await getSafeRoute({
         startLat: currentLocation.latitude,
         startLng: currentLocation.longitude,
@@ -137,6 +145,8 @@ export default function MainPage() {
       }
 
       resetArrivalReview();
+
+      setRouteStartLocation(fixedStartLocation);
 
       setRoutePath(selectedRoute?.routePoints || []);
       setRouteInfo({
@@ -165,6 +175,7 @@ export default function MainPage() {
           dangerMarkers={visibleDanger}
           selectedPlace={selectedPlace}
           routePath={routePath}
+          routeStartLocation={routeStartLocation}
         />
 
         <div className="top-wrapper">
@@ -251,6 +262,7 @@ export default function MainPage() {
             setSelectedPlace(null);
             setRoutePath([]);
             setRouteInfo(null);
+            setRouteStartLocation(null);
           }}
         />
       )}
@@ -296,6 +308,7 @@ export default function MainPage() {
             setRoutePath([]);
             setRouteInfo(null);
             setIsSearchOpen(false);
+            setRouteStartLocation(null);
           }}
         />
       )}
@@ -309,6 +322,7 @@ export default function MainPage() {
             setSelectedPlace(null);
             setRoutePath([]);
             setRouteInfo(null);
+            setRouteStartLocation(null);
           }}
           onRouteClick={handleRouteClick}
           routeInfo={routeInfo}
