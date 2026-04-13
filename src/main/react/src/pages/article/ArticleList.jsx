@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import logo from '../../assets/logo_iriro.png'
 import axios from 'axios';
 import '../../css/article/ArticleList.css';
 

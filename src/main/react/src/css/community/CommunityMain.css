@@ -3,8 +3,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #f0f8ff; /* 리스트 배경색과 통일 */
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100dvh;
 }
 .header-wrapper {
     position: fixed;
@@ -34,27 +37,74 @@
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
+       flex: 1; 
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.headerNavi{
+    text-decoration-line: none;
+    font-weight: bold;
+    color: rgb(34, 75, 211);
+}
+
+/* 푸터 */
+.header-sticky{
+    flex-shrink: 0;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    height: var(--main-header-height);
+    padding: 0 10px;
+    font-size: 16px;
+    background-color: white;
+    background: linear-gradient(to top, #ffffff, #f0f8ff);
+    border-top: 2px solid #7ea6ff;
 }
 
 .commu-header {
-    width: 100%;
-    padding: 30px 10px; /* 좌우 패딩을 리스트와 동일하게 */
+    padding: 40px 20px 30px;
     text-align: center;
-    background: white; /* 카드들과 같은 흰색 배경 */
-    border-bottom: 1px solid #d1e3ff;
+    background: linear-gradient(to bottom, #ffffff, #f0f8ff);
+    border-bottom: 2px solid #7ea6ff;
     box-sizing: border-box;
 }
 
 /* 3. 게시글 리스트가 들어가는 곳 */
 .commu-content {
     width: 100%;
+    overflow-y: auto; /* 스크롤 추가 */
     padding: 10px; /* CommunityList.css의 .list-container 패딩과 일치 */
     box-sizing: border-box;
 }
 
-/* 로고 이미지 크기 고정 */
+
+/* 아래는 사라졌길래 다시 불러온 css */
+
+.mini-title{
+    font-size: 13px;
+}
 .main-logo-img {
-    width: 70px;
+    width: 100px;
     height: auto;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+.commu-header h1 {
+    font-size: 1.8rem;
+    color: #7ea6ff;
+    font-weight: 900;
+    letter-spacing: 3px;
+    margin: 0;
+}
+.commu-content {
+    flex: 1;
 }

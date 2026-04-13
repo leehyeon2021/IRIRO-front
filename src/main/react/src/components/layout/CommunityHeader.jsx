@@ -48,8 +48,7 @@ export default function Header(props){
 
       
     return(
-        <div className="header-wrapper">
-        <div className="header-nav-container">
+        <div>
     
 
         {/* 로그인 메뉴 */}
@@ -59,6 +58,5 @@ export default function Header(props){
         </>)}
 
     
-    </div>
     </div>);
 }
