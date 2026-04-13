@@ -72,6 +72,7 @@ export default function MapPage({
 
     if (myMarkerRef.current) {
       myMarkerRef.current.setPosition(center);
+      return;
     }
     myMarkerRef.current = new window.Tmapv2.Marker({
       position: center,
@@ -275,10 +276,13 @@ export default function MapPage({
       endMarkerRef.current = null;
     }
 
+    const startLat = routeStartLocation?.latitude ?? currentLocation.latitude;
+    const startLng = routeStartLocation?.longitude ?? currentLocation.longitude;
+
     if (!routePath || routePath.length === 0 || !selectedPlace) return;
 
     startMarkerRef.current = new window.Tmapv2.Marker({
-      position: new window.Tmapv2.LatLng(currentLocation.latitude, currentLocation.longitude),
+      position: new window.Tmapv2.LatLng(startLat, startLng),
       map: mapInstanceRef.current,
       icon: startMarkerImg,
       iconSize: new window.Tmapv2.Size(32, 40),
@@ -292,7 +296,17 @@ export default function MapPage({
       iconSize: new window.Tmapv2.Size(32, 32),
       title: selectedPlace.name || "목적지",
     });
-  }, [routePath, selectedPlace, currentLocation.latitude, currentLocation.longitude, mapReady]);
+  }, [routePath, selectedPlace, routeStartLocation, mapReady]);
+
+  // 새 경로가 들어오면 fitBounds를 다시 허용
+  useEffect(() => {
+    if (!routePath || routePath.length === 0) {
+      hasFittedRouteRef.current = false;
+      return;
+    }
+
+    hasFittedRouteRef.current = false;
+  }, [routePath]);
 
   // 8. 경로 fitBounds
   useEffect(() => {
