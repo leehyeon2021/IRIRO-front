@@ -45,12 +45,9 @@ export default function ArticleList( props ){
                 
                 {/* 상단 검색바 영역 */}
                 <div className='main_top'>
-                    <div className='logo-area'>
-                        <img src={logo}/>
-                        <h3 style={{ margin: "0", fontWeight: 'bold', color: '#0056b3' }}> 
-                            우리 지역구 범죄 기사
-                        </h3>
-                    </div>
+                    <h3 style={{ margin: "0", fontWeight: 'bold', color: '#0056b3' }}> 
+                        우리 지역구 범죄 기사
+                    </h3>
 
                     <form onSubmit={onSearch} 
                         style={{ marginTop: '5px' }}
