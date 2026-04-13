@@ -1,0 +1,158 @@
+/* src/css/community/DetailView.css */
+
+.detail-container {
+    padding: 20px;
+    background-color: #f0f8ff;
+    min-height: 100vh;
+    font-family: 'Pretendard', sans-serif; /* 폰트가 훨씬 깔끔해집니다 */
+}
+
+/* 게시글 본문 카드 */
+.post-main-card {
+    background: white;
+    border: 2px solid #7ea6ff;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(126, 166, 255, 0.1);
+}
+
+.post-header {
+    border-bottom: 1px solid #eef2f8;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.post-meta-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.post-title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #333;
+    margin: 15px 0 10px 0;
+}
+
+.post-location {
+    font-size: 0.9rem;
+    color: #5588ff;
+    font-weight: 500;
+}
+
+.post-body {
+    min-height: 150px;
+    line-height: 1.7;
+    font-size: 1rem;
+    color: #444;
+}
+
+/* 따봉하기 버튼 가운데 정렬 */
+.post-footer {
+    margin-top: 30px;
+    text-align: center; /* 버튼을 가운데로 */
+}
+
+.ddabong-count {
+    font-weight: bold;
+    color: #ff6b6b;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.ddabong-btn {
+    background-color: #7ea6ff;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 10px rgba(126, 166, 255, 0.3);
+}
+
+.ddabong-btn:hover {
+    transform: translateY(-3px);
+    background-color: #5a8eff;
+}
+
+/* 댓글 영역 스타일링 (중요!) */
+.reply-section {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid #d1e3ff;
+}
+
+.reply-count {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: block;
+    color: #333;
+}
+
+/* 댓글 입력창 가로로 이쁘게 */
+.reply-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.reply-input {
+    flex: 1;
+    border: 1px solid #d1e3ff;
+    border-radius: 10px;
+    padding: 12px;
+    outline: none;
+}
+
+.reply-submit-btn {
+    background-color: #7ea6ff;
+    color: #7ea6ff;
+    border: none;
+    padding: 0 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* 개별 댓글 디자인 */
+.reply-item {
+    background-color: #fcfdff;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 12px;
+    border: 1px solid #f0f4f9;
+}
+
+.reply-user-info {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.reply-text {
+    font-size: 0.95rem;
+    color: #333;
+    line-height: 1.5;
+}
+
+.delete-btn-text, .reply-delete-btn {
+    background: #ffebeb;
+    color: #ff5e5e;
+    border: none;
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    cursor: pointer;
+}

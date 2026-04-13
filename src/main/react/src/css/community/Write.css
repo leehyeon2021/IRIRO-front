@@ -1,0 +1,66 @@
+.write-container {
+    padding: 20px;
+    background-color: #f0f8ff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.write-card {
+    background-color: white;
+    width: 100%;
+    max-width: 500px;
+    border: 2px solid #7ea6ff;
+    border-radius: 15px;
+    padding: 30px;
+    height: fit-content;
+    margin-top: 20px;
+}
+
+.write-title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.input-field, .textarea-field {
+    width: 100%;
+    border: 1px solid #d1e3ff;
+    border-radius: 8px;
+    padding: 10px;
+    box-sizing: border-box; /* 패딩 때문에 삐져나가는거 방지 */
+}
+
+.textarea-field {
+    height: 200px;
+    resize: none;
+}
+
+.write-btn-group {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.submit-btn {
+    width: 100% !important;
+    background-color: #7ea6ff !important;
+    color: white !important;
+    border: none !important;
+    padding: 15px !important;
+    border-radius: 10px !important;
+    font-size: 1.1rem !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+}
