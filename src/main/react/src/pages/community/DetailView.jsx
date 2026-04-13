@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import "../../css/community/DetailView.css";
 
 export default function DetailView(props) {
     // [1] 변수 선언을 가장 최상단으로 올립니다 (에러 해결 핵심!)
@@ -147,38 +148,56 @@ export default function DetailView(props) {
     // 주의: 모든 훅(useState, useEffect)은 이 리턴문보다 위에 있어야 합니다!
     if (!post) return <div> 불러오는 중... </div>
 
-    // [6] 실제 화면 렌더링
+   // [6] 실제 화면 렌더링
     return (
-        <div>
-            <h3> 게시물 상세 </h3>
-            <div style={{borderBottom: '1px solid #ccc', paddingBottom: '10px'}}>
-                <div> 작성자 : {post.nickname} | 작성일 : {post.createdAt} </div>
-                <span>위치 : {post.addressName || " 주소값 로딩 중 . . . "}</span>
-                <button onClick={deletePost}>삭제</button>
-                <div> 제목 : {post.boardTitle} </div>
-                <div> 내용 : {post.boardContent} </div>
-                <div> 따봉 : {post.recommendCount} </div>
-                <button onClick={ddabong}> 따봉하기👍🏻 </button>
-            </div>
-
-            {/* 댓글 입력 폼 */}
-            <div style={{marginTop: '20px'}}>
-                <form onSubmit={replyWrite}>
-                    댓글 내용 : <input name="replyContent" placeholder="댓글을 입력해주세요." />
-                    <button type="submit">등록</button>
-                </form>
-            </div>
-
-            {/* 댓글 출력 목록 */}
-            <div style={{marginTop: '20px'}}>
-                <h4>댓글 목록</h4>
-                {replyList && replyList.map((reply) => (
-                    <div key={reply.replyId} style={{borderBottom: '1px solid #eee', padding: '5px'}}>
-                        <div style={{fontWeight: 'bold'}}>작성자 : {reply.nickname}</div>
-                        <div>{reply.replyContent}</div>
-                        <button onClick={ () => deleteReply(reply.replyId) }>삭제</button>
+        <div className="detail-container">
+            {/* 메인 게시글 카드 */}
+            <div className="post-main-card">
+                <div className="post-header">
+                    <div className="post-meta-top">
+                        <span>작성자 : <strong>{post.nickname}</strong> | 작성일 : {post.createdAt}</span>
+                        <button className="delete-btn-text" onClick={deletePost}>삭제</button>
                     </div>
-                ))}
+                    <div className="post-location">📍 위치 : {post.addressName || " 주소값 로딩 중 . . . "}</div>
+                    <h2 className="post-title">{post.boardTitle}</h2>
+                </div>
+
+                <div className="post-body">
+                    {post.boardContent}
+                </div>
+
+                <div className="post-footer">
+                    <div style={{marginBottom: '10px', color: '#666'}}>👍 따봉 : {post.recommendCount}</div>
+                    <button className="ddabong-btn" onClick={ddabong}> 따봉하기👍🏻 </button>
+                </div>
+            </div>
+
+            {/* 댓글 영역 */}
+            <div className="reply-section">
+                <h4 className="reply-count">댓글 목록</h4>
+                
+                {/* 댓글 입력 폼 */}
+                <form className="reply-form" onSubmit={replyWrite}>
+                    <input 
+                        className="reply-input" 
+                        name="replyContent" 
+                        placeholder="댓글을 입력해주세요." 
+                    />
+                    <button className="reply-submit-btn" type="submit">등록</button>
+                </form>
+
+                {/* 댓글 출력 목록 */}
+                <div className="reply-list">
+                    {replyList && replyList.map((reply) => (
+                        <div key={reply.replyId} className="reply-item">
+                            <div className="reply-user-info">
+                                <span>작성자 : {reply.nickname}</span>
+                                <span className="reply-delete-btn" onClick={ () => deleteReply(reply.replyId) }>삭제</span>
+                            </div>
+                            <div className="reply-text">{reply.replyContent}</div>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );
