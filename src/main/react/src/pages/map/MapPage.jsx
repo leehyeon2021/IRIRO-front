@@ -72,6 +72,7 @@ export default function MapPage({
 
     if (myMarkerRef.current) {
       myMarkerRef.current.setPosition(center);
+      return;
     }
     myMarkerRef.current = new window.Tmapv2.Marker({
       position: center,
@@ -112,17 +113,23 @@ export default function MapPage({
       return;
     }
 
-    // GeoJSON 포인트 변환
-    const points = dangerMarkers.map((danger) => ({
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [danger.longitude, danger.latitude],
-      },
-      properties: {
-        title: danger.cri_road || danger.roadType || '위험 지역',
-      },
-    }));
+    // GeoJSON 포인트 변환 (좌표 없으면 제외 — 클러스터/Tmap 내부 null 참조 방지)
+    const points = dangerMarkers
+      .filter(
+        (danger) =>
+          Number.isFinite(Number(danger.latitude)) &&
+          Number.isFinite(Number(danger.longitude))
+      )
+      .map((danger) => ({
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: [Number(danger.longitude), Number(danger.latitude)],
+        },
+        properties: {
+          title: danger.cri_road || danger.roadType || "위험 지역",
+        },
+      }));
 
     // supercluster 로드
     superclusterRef.current = new Supercluster({ radius: 60, maxZoom: 18 });
@@ -135,10 +142,19 @@ export default function MapPage({
       dangerClusterMarkersRef.current = [];
 
       const map = mapInstanceRef.current;
-      const zoom = Math.floor(map.getZoom());
-      const bounds = map.getBounds();
-      const sw = bounds.getSouthWest();
-      const ne = bounds.getNorthEast();
+      let zoom;
+      try {
+        zoom = Math.floor(map.getZoom());
+      } catch {
+        return;
+      }
+      const bounds = map.getBounds?.();
+      if (!bounds) return;
+      const sw = bounds.getSouthWest?.();
+      const ne = bounds.getNorthEast?.();
+      if (!sw || !ne || typeof sw.lng !== "function" || typeof ne.lng !== "function") {
+        return;
+      }
 
       const clusters = superclusterRef.current.getClusters(
         [sw.lng(), sw.lat(), ne.lng(), ne.lat()],
@@ -275,10 +291,13 @@ export default function MapPage({
       endMarkerRef.current = null;
     }
 
+    const startLat = routeStartLocation?.latitude ?? currentLocation.latitude;
+    const startLng = routeStartLocation?.longitude ?? currentLocation.longitude;
+
     if (!routePath || routePath.length === 0 || !selectedPlace) return;
 
     startMarkerRef.current = new window.Tmapv2.Marker({
-      position: new window.Tmapv2.LatLng(currentLocation.latitude, currentLocation.longitude),
+      position: new window.Tmapv2.LatLng(startLat, startLng),
       map: mapInstanceRef.current,
       icon: startMarkerImg,
       iconSize: new window.Tmapv2.Size(32, 40),
@@ -292,7 +311,17 @@ export default function MapPage({
       iconSize: new window.Tmapv2.Size(32, 32),
       title: selectedPlace.name || "목적지",
     });
-  }, [routePath, selectedPlace, currentLocation.latitude, currentLocation.longitude, mapReady]);
+  }, [routePath, selectedPlace, routeStartLocation, mapReady]);
+
+  // 새 경로가 들어오면 fitBounds를 다시 허용
+  useEffect(() => {
+    if (!routePath || routePath.length === 0) {
+      hasFittedRouteRef.current = false;
+      return;
+    }
+
+    hasFittedRouteRef.current = false;
+  }, [routePath]);
 
   // 8. 경로 fitBounds
   useEffect(() => {

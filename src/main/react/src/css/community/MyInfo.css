@@ -1,0 +1,82 @@
+/* src/css/community/MyInfo.css */
+
+.mypage-container {
+    padding: 20px;
+    background-color: #f0f8ff; /* 공통 배경색 */
+    min-height: 100vh;
+}
+
+.mypage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding: 0 5px;
+}
+
+.mypage-header h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin: 0;
+}
+
+.back-link {
+    text-decoration: none;
+    color: #7ea6ff;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* 섹션 타이틀 (내가 쓴 글, 내가 쓴 댓글) */
+.section-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #555;
+    margin: 30px 0 15px 5px;
+    display: block;
+}
+
+/* 활동 내역 카드 스타일 */
+.my-activity-card {
+    background-color: white;
+    border: 2px solid #7ea6ff; /* 커뮤니티 포인트 컬러 */
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(126, 166, 255, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.my-activity-card:hover {
+    transform: translateY(-3px);
+}
+
+.card-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.card-content {
+    font-size: 0.95rem;
+    color: #444;
+    line-height: 1.4;
+}
+
+.empty-msg {
+    text-align: center;
+    padding: 40px 0;
+    color: #999;
+    background: white;
+    border-radius: 12px;
+    border: 1px dashed #d1e3ff;
+}

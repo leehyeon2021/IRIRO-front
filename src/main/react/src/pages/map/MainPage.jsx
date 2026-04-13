@@ -20,7 +20,8 @@ export default function MainPage() {
   const [showDangerSpots, setShowDangerSpots] = useState(false);
   const [showSafeSpots, setShowSafeSpots] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // ⭐ 1단계: 왼쪽 아래 메뉴를 열고 닫을 스위치 추가!
+
+  // 왼쪽 아래 메뉴를 열고 닫을 스위치
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   // 검색창 상태변화
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -62,44 +63,44 @@ export default function MainPage() {
 
   // 현재 위치 가져오기
   useEffect(() => {
-    // if (!navigator.geolocation) {
-    //   console.log("Geolocation 지원 안됨");
-    //   return;
-    // }
+    if (!navigator.geolocation) {
+      console.log("Geolocation 지원 안됨");
+      return;
+    }
 
-    // // 초기 로딩
-    // navigator.geolocation.getCurrentPosition(
-    //   (position) => {
-    //     const { latitude, longitude } = position.coords;
-    //     setCurrentLocation({ latitude, longitude });
-    //     console.log("초기 위치 로드 완료:", latitude, longitude);
-    //   },
-    //   (error) => {
-    //     console.log("초기 위치 조회 실패:", error);
-    //   },
-    //   { enableHighAccuracy: true }
-    // );
+    // 초기 로딩
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        setCurrentLocation({ latitude, longitude });
+        console.log("초기 위치 로드 완료:", latitude, longitude);
+      },
+      (error) => {
+        console.log("초기 위치 조회 실패:", error);
+      },
+      { enableHighAccuracy: true }
+    );
 
-    // // 변경 될 때 마다 조회 실행
-    // const watchId = navigator.geolocation.watchPosition(
-    //   (position) => {
-    //     setCurrentLocation({
-    //       latitude: position.coords.latitude,
-    //       longitude: position.coords.longitude,
-    //     });
-    //   },
-    //   (error) => {
-    //     console.log("현재 위치 조회 실패:", error);
-    //   },
-    //   {
-    //     enableHighAccuracy: true,
-    //     timeout: 10000,
-    //     maximumAge: 5000,
-    //   }
-    // );
-    // return () => {
-    //   navigator.geolocation.clearWatch(watchId);
-    // };
+    // 변경 될 때 마다 조회 실행
+    const watchId = navigator.geolocation.watchPosition(
+      (position) => {
+        setCurrentLocation({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      },
+      (error) => {
+        console.log("현재 위치 조회 실패:", error);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 5000,
+      }
+    );
+    return () => {
+      navigator.geolocation.clearWatch(watchId);
+    };
   }, []);
 
   // 주변 마커 조회

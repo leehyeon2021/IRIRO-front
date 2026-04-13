@@ -89,9 +89,9 @@
 
 
 
-/* 하단 영역 */
+/* 하단 영역 — fixed면 PC에서 뷰포트(전체 화면) 기준이라 양 끝으로 벌어짐. map-shell(relative) 기준으로 둠 */
 .bottom-wrapper {
-  position: fixed;
+  position: absolute;
   left: 20px;
   right: 20px;
   bottom: calc(env(safe-area-inset-bottom) + 16px);
@@ -99,6 +99,11 @@
   justify-content: space-between;
   align-items: center;
   z-index: 300;
+  pointer-events: none;
+}
+
+.bottom-wrapper > * {
+  pointer-events: auto;
 }
 
 .btn-menu {

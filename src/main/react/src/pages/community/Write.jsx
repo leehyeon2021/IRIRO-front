@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "../../css/community/Write.css"
 
 export default function Write(props){
 
@@ -35,15 +36,39 @@ export default function Write(props){
         }
      }
 
-    return(<>
-    <div>
-        <h3> 글쓰기 페이지 </h3>
-        <form onSubmit={boardWrite}>
-            
-            제목 : <input name="boardTitle"></input> <br/>
-            내용 : <textarea name="boardContent"></textarea> <br/>
-            <button type="submit"> 등록 </button>
-        </form>
+   return (
+    <div className="write-container">
+        <div className="write-card">
+            <h3 className="write-title">글쓰기 페이지</h3>
+            <form onSubmit={boardWrite}>
+                {/* 제목 섹션 */}
+                <div className="form-group">
+                    <label>제목</label>
+                    <input 
+                        name="boardTitle" 
+                        className="input-field" 
+                        placeholder="제목을 입력해주세요" 
+                    />
+                </div>
+
+                {/* 내용 섹션 */}
+                <div className="form-group">
+                    <label>내용</label>
+                    <textarea 
+                        name="boardContent" 
+                        className="textarea-field" 
+                        placeholder="내용을 입력해주세요"
+                    ></textarea>
+                </div>
+
+                {/* 버튼 섹션 */}
+                <div className="write-btn-group">
+                    <button type="submit" className="submit-btn">
+                        등록하기
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-    </>)
+    );
 }
