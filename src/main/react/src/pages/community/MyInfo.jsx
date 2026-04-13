@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 export default function MyInfo(props){
@@ -32,6 +33,7 @@ export default function MyInfo(props){
 
     <div>
         <h2> 마이페이지 </h2>
+        <Link to="/community"> 뒤로가기 </Link> 
         <table>
             <thead>
                 <tr>
