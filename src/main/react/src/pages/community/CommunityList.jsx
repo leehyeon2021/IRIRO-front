@@ -59,7 +59,7 @@ export default function CommunityList() {
                         <Link to={`/community/DetailView/${post.boardId}`} className="post-card">
                             <div className="card-top">
                                 <span>번호 : {post.boardId}</span>
-                                <span>위치 : {post.addressName || " 잠시만 기다려주세요! 로딩 중 . . . "}</span>
+                                <span>위치 : {post.addressName || " 주소값 로딩 중 . . . "}</span>
                                 <span>작성일 : {post.createDate?.split("T")[0] || '2026-04-08'}</span>
                                 <span>추천수 : {post.recommendCount || 0}</span>
                             </div>
