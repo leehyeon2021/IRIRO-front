@@ -11,23 +11,24 @@ import ArticleMain from "./article/ArticleMain.jsx";
 import Login from "./community/Login.jsx";
 import Sign from "./community/Sign.jsx";
 import Write from "./community/Write.jsx";
-import DetailView from "./community/detailView.jsx";
+import DetailView from "./community/DetailView.jsx";
+import MyInfo from "./community/MyInfo.jsx";
 
 
-export default function Index(props) {
+export default function Index() {
     return (
         <div id="wrap">
             <Routes>
                 <Route element={<MainLayout />}>
                     <Route path='/' element={< MainPage />}></Route> {/* 메인페이지 */}
+                    <Route path='/MyInfo' element={<MyInfo/>} /> 
                     {/* /community 그룹 */}
                     <Route path='/community' element={<CommunityMain />}>
                         <Route index element={<CommunityList />} />
                         <Route path='login' element={<Login />} />
                         <Route path='sign' element={<Sign />} />
                         <Route path='write' element={<Write />} />
-                        <Route path='DetailView' element={<DetailView/>} />
-                       {/* <Route path='MyInfo' element={<MyInfo/>} /> */} 
+                        <Route path='DetailView/:boardId' element={<DetailView/>} />
                     </Route>
                     <Route path='/articles/*' element={<ArticleMain />} />
                 </Route>

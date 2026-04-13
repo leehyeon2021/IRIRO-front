@@ -1,12 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function DetailView(props) {
     // [1] 변수 선언을 가장 최상단으로 올립니다 (에러 해결 핵심!)
-    const [params] = useSearchParams();
-    const boardId = params.get("boardId");
+    const { boardId } = useParams();
 
     // [2] 상태 변수들 선언
     const [post, setPost] = useState(null);
@@ -49,6 +48,8 @@ export default function DetailView(props) {
         } catch (e) { console.error('댓글 등록 실패:', e); }
     };
 
+    const navigate = useNavigate();
+
     // 따봉(추천) 기능
     const ddabong = async () => {
         try {
@@ -58,6 +59,58 @@ export default function DetailView(props) {
                 findById(); // 데이터 갱신
             }
         } catch (e) { console.error("따봉 실패:", e); }
+    };
+
+    const deleteReply=(id)=>{
+        if(window.confirm('댓글을 정말 삭제하시겠습니까?')){
+            const token = localStorage.getItem('token');
+
+            axios.delete(`http://localhost:8080/api/board/rpdelete`,
+                {
+                    params:{replyId:id},
+                    headers:{Authorization:`Bearer ${token}`}
+                }
+            )
+
+            .then(res=>{
+                if(res.data === true){
+                    alert('삭제가 완료되었습니다.');
+                    getReplyList();
+                }else{
+                    alert('삭제 권한이 없습니다.(본인 댓글만 삭제 가능');
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('서버와 통신 중 오류가 발생했습니다.');
+            });
+        }
+    }
+
+    const deletePost=()=>{
+        console.log('1.삭제 버튼 클릭됨')
+        if(window.confirm('리뷰를 정말 삭제하시겠습니까?')){
+            const token = localStorage.getItem('token');
+            console.log('확인 창에서 확인 누름');
+            axios.delete(`http://localhost:8080/api/board/rvdelete`,
+                {
+                    params:{boardId:boardId},
+                    headers:{Authorization:`Bearer ${token}`}
+                }
+            )
+            .then(res=>{
+                if(res.data === true){
+                alert("삭제가 완료되었습니다.");
+                navigate("/community");
+            }else{
+                alert('삭제 권한이 없습니다.(본인 게시글만 삭제 가능');
+            }
+            })
+            .catch(err=>{
+                alert("삭제 실패");
+                console.error(err);
+            });
+        }
     };
 
     // [4] 실행 시점 제어
@@ -78,6 +131,7 @@ export default function DetailView(props) {
             <h3> 게시물 상세 </h3>
             <div style={{borderBottom: '1px solid #ccc', paddingBottom: '10px'}}>
                 <div> 작성자 : {post.nickname} | 작성일 : {post.createdAt} </div>
+                <button onClick={deletePost}>삭제</button>
                 <div> 제목 : {post.boardTitle} </div>
                 <div> 내용 : {post.boardContent} </div>
                 <div> 따봉 : {post.recommendCount} </div>
@@ -99,6 +153,7 @@ export default function DetailView(props) {
                     <div key={reply.replyId} style={{borderBottom: '1px solid #eee', padding: '5px'}}>
                         <div style={{fontWeight: 'bold'}}>작성자 : {reply.nickname}</div>
                         <div>{reply.replyContent}</div>
+                        <button onClick={ () => deleteReply(reply.replyId) }>삭제</button>
                     </div>
                 ))}
             </div>
