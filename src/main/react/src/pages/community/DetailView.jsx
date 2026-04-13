@@ -11,12 +11,31 @@ export default function DetailView(props) {
     const [post, setPost] = useState(null);
     const [replyList, setReplyList] = useState([]); // 이 선언이 빠졌다면 추가하세요!
 
+
+    // 주소 변환 함수
+    const getAddress = async(x,y)=>{
+        try{
+            const res = await axios.get(`http://localhost:8080/api/test-address?x=${x}&y=${y}`);
+            return res.data.documents[0].address.address_name;
+        }catch(err){
+            console.error("주소 변환 에러 : " , err);
+            return " 주소 변환 실패 ";
+        }
+    }
     // [3] 이제 boardId를 사용하는 함수들을 정의합니다.
     // 게시물 상세 가져오기
     const findById = async () => {
         try {
             const response = await axios.get(`http://localhost:8080/api/board/detail?boardId=${boardId}`);
-            setPost(response.data);
+            
+            // 서버에서 받은 데이터를 일단 변수에 담기
+            const postData = response.data;
+
+            // 주소 변환
+            const addr = await getAddress(postData.startLongitude, postData.startLatitude);
+
+            // 주소까지 합쳐서 한꺼번에 저장
+            setPost({...postData,addressName:addr});
         } catch (e) { console.log("게시물 로드 실패:", e); }
     };
 
@@ -113,6 +132,9 @@ export default function DetailView(props) {
         }
     };
 
+
+
+
     // [4] 실행 시점 제어
     useEffect(() => {
         if (boardId) {
@@ -131,6 +153,7 @@ export default function DetailView(props) {
             <h3> 게시물 상세 </h3>
             <div style={{borderBottom: '1px solid #ccc', paddingBottom: '10px'}}>
                 <div> 작성자 : {post.nickname} | 작성일 : {post.createdAt} </div>
+                <span>위치 : {post.addressName || " 주소값 로딩 중 . . . "}</span>
                 <button onClick={deletePost}>삭제</button>
                 <div> 제목 : {post.boardTitle} </div>
                 <div> 내용 : {post.boardContent} </div>
