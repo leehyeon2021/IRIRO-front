@@ -1,45 +1,60 @@
+/* 전체 레이아웃 */
 .community-layout {
-    max-width: 600px;
-    margin: 0 auto;
-    padding-top: 60px;
-    background-color: #fff;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    background-color: #f0f8ff; /* 리스트 배경색과 통일 */
+    min-height: 100vh;
+}
+.header-wrapper {
+    position: fixed;
+    top: 60px; /* MainHeader 높이 */
+    left: 50%; /* 화면 중앙으로 일단 보냄 */
+    transform: translateX(-50%); /* 정확히 자기 너비만큼 왼쪽으로 당겨서 정중앙 맞춤 */
+    
+    width: 100%;
+    max-width: 600px; /* 게시글 카드 폭이랑 똑같이 맞춤 */
+    height: 45px;
+    background-color: #ffffff;
+    border-bottom: 2px solid #7ea6ff;
+    z-index: 999;
+    
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 10px;
 }
 
-.mini-title{
-    font-size: 13px;
+/* 2. 로고와 타이틀 영역 */
+.commu-container {
+    margin-top: 105px; /* 헤더들 높이 합산 */
+    width: 100%;
+    max-width: 600px; /* 리스트 너비와 일치 */
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
 }
 
 .commu-header {
-    padding: 40px 20px 30px;
+    width: 100%;
+    padding: 30px 10px; /* 좌우 패딩을 리스트와 동일하게 */
     text-align: center;
-    background: linear-gradient(to bottom, #ffffff, #f0f8ff);
-    border-bottom: 2px solid #7ea6ff;
+    background: white; /* 카드들과 같은 흰색 배경 */
+    border-bottom: 1px solid #d1e3ff;
+    box-sizing: border-box;
 }
 
-.main-logo-img {
-    width: 100px;
-    height: auto;
-    margin-bottom: 15px;
-    animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
-}
-
-.commu-header h1 {
-    font-size: 1.8rem;
-    color: #7ea6ff;
-    font-weight: 900;
-    letter-spacing: 3px;
-    margin: 0;
-}
-
+/* 3. 게시글 리스트가 들어가는 곳 */
 .commu-content {
-    flex: 1;
+    width: 100%;
+    padding: 10px; /* CommunityList.css의 .list-container 패딩과 일치 */
+    box-sizing: border-box;
+}
+
+/* 로고 이미지 크기 고정 */
+.main-logo-img {
+    width: 70px;
+    height: auto;
+    margin-bottom: 10px;
 }

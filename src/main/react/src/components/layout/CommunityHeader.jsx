@@ -50,21 +50,12 @@ export default function Header(props){
     return(
         <div className="header-wrapper">
         <div className="header-nav-container">
-        {/* 로그인 상태에 따른 메뉴 분기 */}
-        <Link to="/"> 지도 </Link> 
-        <Link to="/community"> 게시판 홈 </Link> 
-
-        {/* 비로그인 메뉴 */}
-        { login == false && (<>
-                <Link to="/community/login"> 로그인 </Link> 
-                <Link to="/community/sign"> 회원가입 </Link> 
-        </>)}
+    
 
         {/* 로그인 메뉴 */}
         { login == true && (<>
                 <Link to="/MyInfo"> {user.nickname} 님의 마이페이지 </Link>
                 <Link to="/community/write"> 글쓰기 </Link>
-                <button onClick={logout}> 로그아웃 </button>
         </>)}
 
     
