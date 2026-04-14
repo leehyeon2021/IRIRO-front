@@ -1,0 +1,101 @@
+ .header-wrapper {
+
+    /* [핵심] 부모고 뭐고 다 무시하고 화면 정중앙으로 강제 소환 */
+
+    position: fixed !important;
+
+    top: 60px !important;    /* 메인헤더 아래 */
+
+    left: 50% !important;   /* 화면 가로 50% 지점으로 보냄 */
+
+    transform: translateX(-50%) !important; /* 내 크기의 절반만큼 왼쪽으로 밀어서 '진짜 중앙' 맞춤 */
+
+   
+
+    /* [핵심] 너비를 100%로 잡지 말고, 네가 원하는 디자인대로 100vw를 써 */
+
+    width: 100vw !important;
+
+    height: 60px !important;
+
+    background-color: #ffffff !important;
+
+    border-bottom: 1px solid #7ea6ff !important;
+
+    z-index: 9999 !important;
+
+   
+
+    display: flex !important;
+
+    justify-content: center !important;
+
+}
+
+
+
+.header-nav-container {
+
+    /* 여기서 가로폭을 메인헤더랑 똑같이 600px로 제한해 */
+
+    width: 600px !important;
+
+    max-width: 600px !important;
+
+    height: 100% !important;
+
+    display: flex !important;
+
+    justify-content: space-between !important;
+
+    align-items: center !important;
+
+    padding: 0 16px !important;
+
+    box-sizing: border-box !important;
+
+    background-color: transparent !important;
+
+}
+
+
+
+/* 아래 버튼 스타일들은 그대로 유지 */
+
+.header-left, .header-right {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+
+
+.header-nav-container a {
+
+    text-decoration: none !important;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    padding: 6px 12px;
+
+    border-radius: 8px;
+
+    white-space: nowrap;
+
+    color: #555 !important;
+
+}
+
+
+
+.nav-map { background-color: #fff9db; color: #f08c00 !important; }
+
+.nav-home { background-color: #e7f5ff; color: #228be6 !important; }
+
+.nav-write { background-color: #7ea6ff; color: #ffffff !important; }
