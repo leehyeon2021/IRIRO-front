@@ -52,7 +52,7 @@ export default function CommunityFooter( props ){
         <div className="header-sticky">
             <Link className="headerNavi" to="/"> ↩️ 지도로 돌아가기 </Link>
             <Link className="headerNavi" to="/community"> 👥 게시판 홈 </Link>
-            <Link className="headerNavi" to="/articles/*"> 📰 기사 게시판 </Link>
+            <Link className="headerNavi" to="/articles"> 📰 기사 게시판 </Link>
         </div>
     );
 }
