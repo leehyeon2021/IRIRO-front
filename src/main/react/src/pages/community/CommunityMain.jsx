@@ -17,14 +17,13 @@ export default function CommunityMain() {
         <div className="community-layout">
             <MainHeader />
             <CommunityHeader />
-            
             <div className="commu-container">
                 {/* [수정] 메인 페이지일 때만 로고와 타이틀 출력 */}
                 {isMainPage && (
                     <header className="commu-header">
                         <img src={logoGhost} alt="IRIRO 로고" className="main-logo-img" />
                         <h1>IRIRO COMMUNITY</h1>
-                        <p className="mini-title">불편한 점이 있으셨나요? 게시판에 남겨주시면 큰 도움이 됩니다!</p>
+                        <p className="mini-title">불편한 점이 있으셨나요? <br/> 게시판에 남겨주시면 큰 도움이 됩니다!</p>
                     </header>
                 )}
 

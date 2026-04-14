@@ -15,8 +15,8 @@ export default function ArticleMain( props ){
                     <Route path="/" element={<ArticleList/>}/>
                     <Route path="/find" element={<ArticleFind/>}/>
                 </Routes>
-                </div>
-                <ArticleNavi/>
+            </div>
+            <ArticleNavi/>
         </div>
     )
 }
