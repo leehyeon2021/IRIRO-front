@@ -6,21 +6,24 @@ import "../../css/community/CommunityList.css";
 export default function CommunityList() {
     const [postList, setPostList] = useState([]);
 
-    useEffect(() => {
-        axios.get("http://localhost:8080/api/board/list")
-            .then(async (res) => {
-                const posts = res.data;
+useEffect(() => {
+    axios.get("http://localhost:8080/api/board/list")
+        .then(async (res) => {
+            const posts = res.data;
+            console.log("백엔드에서 받은 원본 데이터:", posts);
 
-                // 모든 게시글을 돌면서 좌표 => 주소로 변환
-                const postsWithAddress = await Promise.all(posts.map(async(post)=>{
-                    console.log("포스트 좌표 확인:", post.startLongitude, post.startLatitude);
-                    const addr = await getAddress(post.startLongitude , post.startLatitude);
-                    return { ...post , addressName : addr }; // 게시글 데이터에 주소 추가
-                }));
-                setPostList(postsWithAddress);
-            })
-            .catch(err => console.log("에러 발생:", err));
-    }, []);
+            const postsWithAddress = await Promise.all(posts.map(async (post) => {
+                const addr = await getAddress(post.startLongitude, post.startLatitude);
+                return { ...post, addressName: addr };
+            }));
+
+            console.log("주소 변환 완료 데이터:", postsWithAddress);
+            setPostList(postsWithAddress);
+        })
+        .catch(err => {
+            console.error("게시글 목록 불러오기 실패:", err);
+        });
+}, []);
 
 
     const bestPosts = [...postList]
@@ -28,12 +31,21 @@ export default function CommunityList() {
         .slice(0, 5);
 
     
-    const getAddress = async ( x , y ) => {
-        try{
-            const res = await axios.get(`http://localhost:8080/api/test-address?x=${x}&y=${y}`);
+const getAddress = async (x, y) => {
+    try {
+        if (!x || !y) return "좌표 없음"; // 좌표가 없으면 바로 리턴
+        const res = await axios.get(`http://localhost:8080/api/test-address?x=${x}&y=${y}`);
+        
+        // 데이터가 있는지 안전하게 체크
+        if (res.data && res.data.documents && res.data.documents[0]) {
             return res.data.documents[0].address.address_name;
-        }catch(err){return "주소 찾기 실패";}
+        }
+        return "주소 정보 없음";
+    } catch (err) {
+        console.log("주소 변환 API 실패:", err);
+        return "주소 찾기 실패"; // 에러가 나도 문자열을 리턴해서 전체 흐름을 안 깨지게 함
     }
+}
 
     return (
         <div className="list-container">
