@@ -1,110 +1,51 @@
-/* 전체 레이아웃 */
-.community-layout {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    height: 100dvh;
-}
-.header-wrapper {
-    position: fixed;
-    top: 60px; /* MainHeader 높이 */
-    left: 50%; /* 화면 중앙으로 일단 보냄 */
-    transform: translateX(-50%); /* 정확히 자기 너비만큼 왼쪽으로 당겨서 정중앙 맞춤 */
-    
-    width: 100%;
-    max-width: 600px; /* 게시글 카드 폭이랑 똑같이 맞춤 */
-    height: 45px;
-    background-color: #ffffff;
-    border-bottom: 2px solid #7ea6ff;
-    z-index: 999;
-    
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    box-sizing: border-box;
-    padding: 0 10px;
-}
-
-/* 2. 로고와 타이틀 영역 */
+/* 2. 로고와 타이틀 영역 (여백 최적화) */
 .commu-container {
-    margin-top: 105px; /* 헤더들 높이 합산 */
-    width: 100%;
-    max-width: 600px; /* 리스트 너비와 일치 */
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-       flex: 1; 
-    overflow-y: hidden;
-    display: flex;
-    flex-direction: column;
-}
-
-.headerNavi{
-    text-decoration-line: none;
-    font-weight: bold;
-    color: rgb(34, 75, 211);
-}
-
-/* 푸터 */
-.header-sticky{
-    flex-shrink: 0;
+    /* 헤더 높이에 맞춰서 살짝 조정 (상황봐서 100~110px 사이로 조절해) */
+    margin-top: 110px; 
     width: 100%;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    flex-direction: column;
     align-items: center;
-    height: var(--main-header-height);
-    padding: 0 10px;
-    font-size: 16px;
-    background-color: white;
-    background: linear-gradient(to top, #ffffff, #f0f8ff);
-    border-top: 2px solid #7ea6ff;
 }
 
 .commu-header {
-    padding: 40px 20px 30px;
+    /* [핵심] 상하 패딩을 확 줄임 (40px -> 15px) */
+    padding: 15px 20px 15px; 
     text-align: center;
     background: linear-gradient(to bottom, #ffffff, #f0f8ff);
     border-bottom: 2px solid #7ea6ff;
     box-sizing: border-box;
+    width: 100%; /* 너비 꽉 차게 */
 }
 
-/* 3. 게시글 리스트가 들어가는 곳 */
-.commu-content {
-    width: 100%;
-    overflow-y: auto; /* 스크롤 추가 */
-    padding: 10px; /* CommunityList.css의 .list-container 패딩과 일치 */
-    box-sizing: border-box;
-}
-
-
-/* 아래는 사라졌길래 다시 불러온 css */
-
-.mini-title{
-    font-size: 13px;
-}
 .main-logo-img {
-    width: 100px;
+    /* [핵심] 이미지 크기를 줄임 (100px -> 60px) */
+    width: 60px; 
     height: auto;
-    margin-bottom: 15px;
+    /* 로고 아래 여백도 줄임 */
+    margin-top: 10px;
+    margin-bottom: 5px; 
     animation: float 3s ease-in-out infinite;
 }
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
-}
+
 .commu-header h1 {
-    font-size: 1.8rem;
+    /* [핵심] 폰트 사이즈를 살짝 줄이고 위아래 마진 제거 */
+    font-size: 1.4rem; 
     color: #7ea6ff;
     font-weight: 900;
-    letter-spacing: 3px;
-    margin: 0;
+    letter-spacing: 2px;
+    margin: 5px 0; /* 위아래 5px만 살짝 줌 */
 }
-.commu-content {
-    flex: 1;
+
+.mini-title {
+    /* 텍스트 크기도 살짝 줄이고 마진 제거 */
+    font-size: 11px;
+    margin: 0;
+    color: #666; /* 너무 튀지 않게 색상 살짝 조절 */
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); } /* 둥둥 뜨는 높이도 줄임 */
+    100% { transform: translateY(0px); }
 }
