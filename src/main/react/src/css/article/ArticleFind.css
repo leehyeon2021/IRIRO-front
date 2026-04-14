@@ -21,7 +21,7 @@
 .find-page {
     max-width: 720px;
     margin: 0 auto;
-    padding: 20px 16px 30px;
+    padding: 80px 16px 30px;
     font-family: 'Noto Sans KR', sans-serif;
     display: flex;
     flex-direction: column;
